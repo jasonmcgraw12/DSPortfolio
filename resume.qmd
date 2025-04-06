@@ -13,20 +13,22 @@ Computer Science Student
 
 ## Currently
 
-Standing on the shoulders of giants
+Studying to become a Computer Scientist
 
 ### Specialized in
 
-Laws of motion, gravitation, minting coins, disliking [Robert Hooke](http://en.wikipedia.org/wiki/Robert_Hooke)
+Machine Learning
 
 
 ### Research interests
 
-Cooling, power series, optics, alchemy, planetary motions, apples.
-
+Food, Relationships, Geology, Entertainment
 
 ## Education
 
+`September 2024 - now`
+__Brigham Young University, Idaho__
+<!-- 
 `1654-1660`
 __The King's School, Grantham.__
 
@@ -38,22 +40,22 @@ __Trinity College, Cambridge__
 `1667 - death`
 __Trinity College, Cambridge__
 
-- Fellow
-
+- Fellow -->
 
 
 ## Awards
 
-`2012`
-President, *Royal Society*, London, UK
+`2019`
+Eagle Scout
 
-Associate, *French Academy of Science*, Paris, France
+`2019`
+Growth Mindset Award | Acquired March 22, 2019 
 
-
+<!-- 
 
 ## Publications
 
-<!-- A list is also available [online](http://scholar.google.co.uk/citations?user=LTOTl0YAAAAJ) -->
+<!-- A list is also available [online](http://scholar.google.co.uk/citations?user=LTOTl0YAAAAJ)
 
 ### Journals
 
@@ -80,7 +82,7 @@ __Royal Mint__, London
 - Minted coins
 
 `1600`
-__Lucasian professor of Mathematics__, Cambridge University
+__Lucasian professor of Mathematics__, Cambridge University -->
 
 
 
