@@ -13,9 +13,97 @@
   {
     "objectID": "Machine_Learning/project1.html",
     "href": "Machine_Learning/project1.html",
-    "title": "Client Report - [Insert Project Title]",
+    "title": "Client Report - What Do People See in Romance?",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "text": "Show the code\nimport numpy as np\nimport pandas as pd\nfrom lets_plot import *\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/datasets/speed-dating/refs/heads/main/data/speed-dating.csv\")\n# Information of data set https://www.openml.org/search?type=data&sort=runs&id=40536&status=active\nLetsPlot.setup_html()",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#import-libraries-and-data-frame.",
+    "href": "Machine_Learning/project1.html#import-libraries-and-data-frame.",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "",
+    "text": "Show the code\nimport numpy as np\nimport pandas as pd\nfrom lets_plot import *\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/datasets/speed-dating/refs/heads/main/data/speed-dating.csv\")\n# Information of data set https://www.openml.org/search?type=data&sort=runs&id=40536&status=active\nLetsPlot.setup_html()",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#make-a-new-data-frame-using-the-data-i-want-to-test-for.",
+    "href": "Machine_Learning/project1.html#make-a-new-data-frame-using-the-data-i-want-to-test-for.",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "Make a new data frame using the data I want to test for.",
+    "text": "Make a new data frame using the data I want to test for.",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#data-clean-up",
+    "href": "Machine_Learning/project1.html#data-clean-up",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "Data clean up",
+    "text": "Data clean up\n\n\nShow the code\nself_rate.iloc[:,0:5] = self_rate.iloc[:,0:5].apply(lambda x: x / 10)\n\nself_rate.head()\n\n\n\n\n\n\n\n\n\npref_o_attractive\npref_o_sincere\npref_o_intelligence\npref_o_funny\npref_o_ambitious\nattractive\nsincere\nintelligence\nfunny\nambition\ndecision_o\n\n\n\n\n0\n3.5\n2.0\n2.0\n2.0\n0.0\n6.0\n8.0\n8.0\n8.0\n7.0\n0\n\n\n1\n6.0\n0.0\n0.0\n4.0\n0.0\n6.0\n8.0\n8.0\n8.0\n7.0\n0\n\n\n2\n1.9\n1.8\n1.9\n1.8\n1.4\n6.0\n8.0\n8.0\n8.0\n7.0\n1\n\n\n3\n3.0\n0.5\n1.5\n4.0\n0.5\n6.0\n8.0\n8.0\n8.0\n7.0\n1\n\n\n4\n3.0\n1.0\n2.0\n1.0\n1.0\n6.0\n8.0\n8.0\n8.0\n7.0\n1",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#split-data-into-train-and-test-sections-for-machine-learning.",
+    "href": "Machine_Learning/project1.html#split-data-into-train-and-test-sections-for-machine-learning.",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "Split data into train and test sections for machine learning.",
+    "text": "Split data into train and test sections for machine learning.\n\n\nShow the code\nimport sklearn\nfrom sklearn.model_selection import train_test_split\n\nx = self_rate.drop(columns = ['decision_o'])\ny = self_rate['decision_o']\n\nx_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .2)\n# CHANGE don't include random state in final project",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#teach-machine-learning-model-using-the-train-values.",
+    "href": "Machine_Learning/project1.html#teach-machine-learning-model-using-the-train-values.",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "Teach machine learning model using the train values.",
+    "text": "Teach machine learning model using the train values.\n\n\nShow the code\nfrom sklearn.ensemble import RandomForestClassifier\n\nclassifier = RandomForestClassifier() # what classifier I'm using, and it's params\n\nclassifier.fit(x_train, y_train) # what the classifier is testing(x_train) and predicting(y_train)\n\n\nRandomForestClassifier()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.RandomForestClassifier?Documentation for RandomForestClassifieriFittedRandomForestClassifier()",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#show-accuracy-of-the-model.",
+    "href": "Machine_Learning/project1.html#show-accuracy-of-the-model.",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "Show accuracy of the model.",
+    "text": "Show accuracy of the model.\n\n\nShow the code\npredictions = classifier.predict(x_test)\n\nfrom sklearn.metrics import classification_report\n\nprint(classification_report(y_test, predictions))\n\n\n              precision    recall  f1-score   support\n\n           0       0.68      0.73      0.70      1006\n           1       0.55      0.50      0.52       670\n\n    accuracy                           0.63      1676\n   macro avg       0.62      0.61      0.61      1676\nweighted avg       0.63      0.63      0.63      1676",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#show-what-variables-were-most-important-for-the-model.",
+    "href": "Machine_Learning/project1.html#show-what-variables-were-most-important-for-the-model.",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "Show what variables were most important for the model.",
+    "text": "Show what variables were most important for the model.\n\n\nShow the code\n# Include and execute your code here\nfeatures = x.columns\nimportance = classifier.feature_importances_\ndata_group = {'Feature': features, 'Importance': importance}\n\nimportance_chart = pd.DataFrame(data_group)\nimportance_chart = importance_chart.sort_values('Importance').head(10)",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html#graph-the-importance-levels-to-show-what-variables-were-most-important.",
+    "href": "Machine_Learning/project1.html#graph-the-importance-levels-to-show-what-variables-were-most-important.",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "Graph the importance levels to show what variables were most important.",
+    "text": "Graph the importance levels to show what variables were most important.\n\n\nShow the code\n(\n  ggplot(importance_chart, aes('Importance', 'Feature')) \n  + geom_bar(stat = 'identity')\n  + labs(\n    title='Predictive Variables For Being Asked Out'\n  )\n)\n\n\n   \n   \n\n\nThis graph shows that the preferences of someone’s partner durring speed dating were a better predictor on how likely they were to being asked out, than how they saw themselves. “Beauty is in the eye of the beholder.”\nDo people who rate themselves highly on desireable traits get asked out more?\n\n\nShow the code\n# Isolate the self proclaimed attributes (such as how attractive someone thinks they are)\nself_proclaim = self_rate\nself_proclaim['proclaimed attributes'] = self_rate.loc[:,self_rate.iloc[:,5:10].columns].sum(axis = 1)\n\n\n\n\nShow the code\n# Make a chart with the mean values of people that got asked out VS. people that didn't.\nself_proclaim =self_proclaim.groupby('decision_o', as_index=False).mean()\n\n\nself_proclaim['decision of partner'] = self_proclaim['decision_o'].apply(lambda x: 'yes' if x == 1 else 'no')\n\nself_proclaim[['decision of partner', 'proclaimed attributes']]\n\n\n\n\n\n\n\n\n\ndecision of partner\nproclaimed attributes\n\n\n\n\n0\nno\n38.487353\n\n\n1\nyes\n38.700711\n\n\n\n\n\n\n\nThe above Table shows the mean number of all the traits someone rated themselves with (out of how attractive, sincere, intelligent, funny, and ambitious they were) grouped by whether or not they were asked out. It shows that the people that rated themselves high on those traits were just as likely to get asked out as the people that rated themselves low. This means that when speed dating the ammount of people that ask you out isn’t dependent on what kind of person you think you are.",
     "crumbs": [
       "Machine Learning",
       "Project 1"
@@ -426,42 +514,28 @@
     "href": "resume.html",
     "title": "Jason McGraw’s CV",
     "section": "",
-    "text": "Computer Science Student\n\ntaartplant@gmail.com \n\n\n\nStanding on the shoulders of giants\n\n\nLaws of motion, gravitation, minting coins, disliking Robert Hooke\n\n\n\nCooling, power series, optics, alchemy, planetary motions, apples.\n\n\n\n\n1654-1660 The King’s School, Grantham.\nJune 1661 - now Trinity College, Cambridge\n\nSizar\n\n1667 - death Trinity College, Cambridge\n\nFellow\n\n\n\n\n2012 President, Royal Society, London, UK\nAssociate, French Academy of Science, Paris, France\n\n\n\n\n\n\n1669 Newton Sir I, De analysi per æquationes numero terminorum infinitas.\n1669 Lectiones opticæ.\netc. etc. etc.\n\n\n\n2012 Infinitesimal calculus for solutions to physics problems, SMBC patent 001\n\n\n\n\n1600 Royal Mint, London\n\nWarden\nMinted coins\n\n1600 Lucasian professor of Mathematics, Cambridge University"
+    "text": "Computer Science Student\n\ntaartplant@gmail.com \n\n\n\nStudying to become a Computer Scientist\n\n\nMachine Learning\n\n\n\nFood, Relationships, Geology, Entertainment\n\n\n\n\nSeptember 2024 - now Brigham Young University, Idaho \n\n\n\n2019 Eagle Scout\n2019 Growth Mindset Award | Acquired March 22, 2019"
   },
   {
     "objectID": "resume.html#currently",
     "href": "resume.html#currently",
     "title": "Jason McGraw’s CV",
     "section": "",
-    "text": "Standing on the shoulders of giants\n\n\nLaws of motion, gravitation, minting coins, disliking Robert Hooke\n\n\n\nCooling, power series, optics, alchemy, planetary motions, apples."
+    "text": "Studying to become a Computer Scientist\n\n\nMachine Learning\n\n\n\nFood, Relationships, Geology, Entertainment"
   },
   {
     "objectID": "resume.html#education",
     "href": "resume.html#education",
     "title": "Jason McGraw’s CV",
     "section": "",
-    "text": "1654-1660 The King’s School, Grantham.\nJune 1661 - now Trinity College, Cambridge\n\nSizar\n\n1667 - death Trinity College, Cambridge\n\nFellow"
+    "text": "September 2024 - now Brigham Young University, Idaho"
   },
   {
     "objectID": "resume.html#awards",
     "href": "resume.html#awards",
     "title": "Jason McGraw’s CV",
     "section": "",
-    "text": "2012 President, Royal Society, London, UK\nAssociate, French Academy of Science, Paris, France"
-  },
-  {
-    "objectID": "resume.html#publications",
-    "href": "resume.html#publications",
-    "title": "Jason McGraw’s CV",
-    "section": "",
-    "text": "1669 Newton Sir I, De analysi per æquationes numero terminorum infinitas.\n1669 Lectiones opticæ.\netc. etc. etc.\n\n\n\n2012 Infinitesimal calculus for solutions to physics problems, SMBC patent 001"
-  },
-  {
-    "objectID": "resume.html#occupation",
-    "href": "resume.html#occupation",
-    "title": "Jason McGraw’s CV",
-    "section": "",
-    "text": "1600 Royal Mint, London\n\nWarden\nMinted coins\n\n1600 Lucasian professor of Mathematics, Cambridge University"
+    "text": "2019 Eagle Scout\n2019 Growth Mindset Award | Acquired March 22, 2019"
   },
   {
     "objectID": "Machine_Learning/project5.html",
