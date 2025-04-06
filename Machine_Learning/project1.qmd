@@ -25,8 +25,12 @@ execute:
     
 ---
 
-## Import libraries and data frame.
+Have you ever wondered what you could do to increase your chances of getting a date? What makes someone desireable? I'm here to answer those questions using data science! The first question I would like to ask is...
+
+# What variables are important to getting asked out?
+In order to answer this question I'm going to use a machine learning model to take in data, then I'll have it tell us what factors went into it's predicitons. Follow me.
 ```{python}
+## Import libraries and data frame.
 import numpy as np
 import pandas as pd
 from lets_plot import *
@@ -36,13 +40,13 @@ df = pd.read_csv("https://raw.githubusercontent.com/datasets/speed-dating/refs/h
 LetsPlot.setup_html()
 ```
 
-## Make a new data frame using the data I want to test for.
 
+
+```{python}
+## Make a new data frame using the data I want to test for.
 # pref_o* = the preference of thier partner (0-100)
 # attractive and other rows = how they see themselves (0-10)
 # decision_o* = whether or not the partner asked them out (yes or no)
-```{python}
-
 self_rate = df[['pref_o_attractive'
               , 'pref_o_sincere'
               , 'pref_o_intelligence'
@@ -56,20 +60,16 @@ self_rate = df[['pref_o_attractive'
               , 'ambition'
               , 'decision_o'
               ]]
-# CHANGE test to see if their qualities and what the partner asked for lead to the partner choosing them
-# CHANGE test to see if people that rate themselves high on everything were more or less likely than people that rated themselves as low (to see acuracy of their traits)
-# What if having a low bar on who you would ask out was the deciding factor
 ```
 
+
+```{python}
 ## Data clean up
-```{python}
 self_rate.iloc[:,0:5] = self_rate.iloc[:,0:5].apply(lambda x: x / 10)
-
-self_rate.head()
 ```
 
-## Split data into train and test sections for machine learning.
 ```{python}
+## Split data into train and test sections for machine learning.
 import sklearn
 from sklearn.model_selection import train_test_split
 
@@ -80,17 +80,17 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .2)
 # CHANGE don't include random state in final project
 ```
 
-## Teach machine learning model using the train values.
 ```{python}
+## Teach machine learning model using the train values.
 from sklearn.ensemble import RandomForestClassifier
 
 classifier = RandomForestClassifier() # what classifier I'm using, and it's params
 
 classifier.fit(x_train, y_train) # what the classifier is testing(x_train) and predicting(y_train)
 ```
-
-## Show accuracy of the model.
+Below is the accuracy of the machine learning model. The numbers by the 1 is how good the model is at predicting if someone got asked out, and the numbers by the 0 is the model's ability to predict if someone didn't get asked out. So, the model is better at predicting if someone didn't get asked out. This will play a role in the data later.
 ```{python}
+## Show accuracy of the model.
 predictions = classifier.predict(x_test)
 
 from sklearn.metrics import classification_report
@@ -98,9 +98,8 @@ from sklearn.metrics import classification_report
 print(classification_report(y_test, predictions))
 ```
 
-## Show what variables were most important for the model.
 ```{python}
-# Include and execute your code here
+## Show what variables were most important for the model.
 features = x.columns
 importance = classifier.feature_importances_
 data_group = {'Feature': features, 'Importance': importance}
@@ -108,8 +107,9 @@ data_group = {'Feature': features, 'Importance': importance}
 importance_chart = pd.DataFrame(data_group)
 importance_chart = importance_chart.sort_values('Importance').head(10)
 ```
-## Graph the importance levels to show what variables were most important.
+Below is a graph showing which features were most important to predict whether or not someone was asked out after speed dating. The variables titled 'pref_o_...' are traits the Dater's partner said they were looking for, and the other traits are what the Dater rated themself out of 10.
 ```{python}
+## Graph the importance levels to show what variables were most important.
 (
   ggplot(importance_chart, aes('Importance', 'Feature')) 
   + geom_bar(stat = 'identity')
@@ -118,23 +118,23 @@ importance_chart = importance_chart.sort_values('Importance').head(10)
   )
 )
 ```
-This graph shows that the preferences of someone's partner durring speed dating were a better predictor on how likely they were to being asked out, than how they saw themselves. "Beauty is in the eye of the beholder."
+This graph shows that the preferences of someone's partner durring speed dating were a better predictor on how likely they were to being asked out, rather than how they saw themselves. In other words "Beauty is in the eye of the beholder" applies to speed dating. But this graph doesn't show what traits are more desirable than others. Let's explore that next.
 
-Do people who rate themselves highly on desireable traits get asked out more?
+# Do people who rate themselves highly on desireable traits get asked out more?
 
 ```{python}
-# Isolate the self proclaimed attributes (such as how attractive someone thinks they are)
+## Isolate the self proclaimed attributes (such as how attractive someone thinks they are)
 self_proclaim = self_rate
-self_proclaim['proclaimed attributes'] = self_rate.loc[:,self_rate.iloc[:,5:10].columns].sum(axis = 1)
+self_proclaim['average of proclaimed attributes'] = self_rate.loc[:,self_rate.iloc[:,5:10].columns].sum(axis = 1)
 ```
 
 ```{python}
-# Make a chart with the mean values of people that got asked out VS. people that didn't.
+## Make a chart with the mean values of people that got asked out VS. people that didn't.
 self_proclaim =self_proclaim.groupby('decision_o', as_index=False).mean()
 
 
 self_proclaim['decision of partner'] = self_proclaim['decision_o'].apply(lambda x: 'yes' if x == 1 else 'no')
 
-self_proclaim[['decision of partner', 'proclaimed attributes']]
+self_proclaim[['decision of partner', 'average of proclaimed attributes']]
 ```
-The above Table shows the mean number of all the traits someone rated themselves with (out of how attractive, sincere, intelligent, funny, and ambitious they were) grouped by whether or not they were asked out. It shows that the people that rated themselves high on those traits were just as likely to get asked out as the people that rated themselves low. This means that when speed dating the ammount of people that ask you out isn't dependent on what kind of person you think you are.
+The above Table shows the mean number of all the traits someone rated themselves with (out of how attractive, sincere, intelligent, funny, and ambitious they were) grouped by whether or not they were asked out. It shows that the people that rated themselves high on those traits were just as likely to get asked out as the people that rated themselves low. This means that when speed dating the ammount of people that ask you out isn't dependent on what kind of person you think you are. Which means that if you're self consious and beat yourself up, don't. You're still just as attractive to speed daters.
