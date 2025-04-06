@@ -4911,37 +4911,29 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#import-libraries-and-data-frame." id="toc-import-libraries-and-data-frame.">Import libraries and data frame.</a></li>
-  <li><a href="#make-a-new-data-frame-using-the-data-i-want-to-test-for." id="toc-make-a-new-data-frame-using-the-data-i-want-to-test-for.">Make a new data frame using the data I want to test for.</a></li>
-  <li><a href="#pref_o-the-preference-of-thier-partner-0-100" id="toc-pref_o-the-preference-of-thier-partner-0-100">pref_o* = the preference of thier partner (0-100)</a></li>
-  <li><a href="#attractive-and-other-rows-how-they-see-themselves-0-10" id="toc-attractive-and-other-rows-how-they-see-themselves-0-10">attractive and other rows = how they see themselves (0-10)</a></li>
-  <li><a href="#decision_o-whether-or-not-the-partner-asked-them-out-yes-or-no" id="toc-decision_o-whether-or-not-the-partner-asked-them-out-yes-or-no">decision_o* = whether or not the partner asked them out (yes or no)</a>
-  <ul>
-  <li><a href="#data-clean-up" id="toc-data-clean-up">Data clean up</a></li>
-  <li><a href="#split-data-into-train-and-test-sections-for-machine-learning." id="toc-split-data-into-train-and-test-sections-for-machine-learning.">Split data into train and test sections for machine learning.</a></li>
-  <li><a href="#teach-machine-learning-model-using-the-train-values." id="toc-teach-machine-learning-model-using-the-train-values.">Teach machine learning model using the train values.</a></li>
-  <li><a href="#show-accuracy-of-the-model." id="toc-show-accuracy-of-the-model.">Show accuracy of the model.</a></li>
-  <li><a href="#show-what-variables-were-most-important-for-the-model." id="toc-show-what-variables-were-most-important-for-the-model.">Show what variables were most important for the model.</a></li>
-  <li><a href="#graph-the-importance-levels-to-show-what-variables-were-most-important." id="toc-graph-the-importance-levels-to-show-what-variables-were-most-important.">Graph the importance levels to show what variables were most important.</a></li>
-  </ul></li>
+  <li><a href="#what-variables-are-important-to-getting-asked-out" id="toc-what-variables-are-important-to-getting-asked-out">What variables are important to getting asked out?</a></li>
+  <li><a href="#do-people-who-rate-themselves-highly-on-desireable-traits-get-asked-out-more" id="toc-do-people-who-rate-themselves-highly-on-desireable-traits-get-asked-out-more">Do people who rate themselves highly on desireable traits get asked out more?</a></li>
   </ul>
 </nav>
-<section id="import-libraries-and-data-frame." class="level2">
-<h2 class="anchored" data-anchor-id="import-libraries-and-data-frame.">Import libraries and data frame.</h2>
-<div id="45c0d235" class="cell" data-execution_count="1">
+<p>Have you ever wondered what you could do to increase your chances of getting a date? What makes someone desireable? I’m here to answer those questions using data science! The first question I would like to ask is…</p>
+<section id="what-variables-are-important-to-getting-asked-out" class="level1">
+<h1>What variables are important to getting asked out?</h1>
+<p>In order to answer this question I’m going to use a machine learning model to take in data, then I’ll have it tell us what factors went into it’s predicitons. Follow me.</p>
+<div id="62fdab81" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lets_plot <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/datasets/speed-dating/refs/heads/main/data/speed-dating.csv&quot;</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Information of data set https://www.openml.org/search?type=data&amp;sort=runs&amp;id=40536&amp;status=active</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>LetsPlot.setup_html()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Import libraries and data frame.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lets_plot <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://raw.githubusercontent.com/datasets/speed-dating/refs/heads/main/data/speed-dating.csv&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Information of data set https://www.openml.org/search?type=data&amp;sort=runs&amp;id=40536&amp;status=active</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>LetsPlot.setup_html()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
-            <div id="necg24"></div>
+            <div id="YChHW7"></div>
             <script type="text/javascript" data-lets-plot-script="library">
                 if(!window.letsPlotCallQueue) {
                     window.letsPlotCallQueue = [];
@@ -4965,182 +4957,67 @@ vertical-align: -.125em;
                         var div = document.createElement("div");
                         div.style.color = 'darkred';
                         div.textContent = 'Error loading Lets-Plot JS';
-                        document.getElementById("necg24").appendChild(div);
+                        document.getElementById("YChHW7").appendChild(div);
                     };
-                    var e = document.getElementById("necg24");
+                    var e = document.getElementById("YChHW7");
                     e.appendChild(script);
                 })()
             </script>
             
 </div>
 </div>
-</section>
-<section id="make-a-new-data-frame-using-the-data-i-want-to-test-for." class="level2">
-<h2 class="anchored" data-anchor-id="make-a-new-data-frame-using-the-data-i-want-to-test-for.">Make a new data frame using the data I want to test for.</h2>
-</section>
-<section id="pref_o-the-preference-of-thier-partner-0-100" class="level1">
-<h1>pref_o* = the preference of thier partner (0-100)</h1>
-</section>
-<section id="attractive-and-other-rows-how-they-see-themselves-0-10" class="level1">
-<h1>attractive and other rows = how they see themselves (0-10)</h1>
-</section>
-<section id="decision_o-whether-or-not-the-partner-asked-them-out-yes-or-no" class="level1">
-<h1>decision_o* = whether or not the partner asked them out (yes or no)</h1>
-<div id="e711ba33" class="cell" data-execution_count="2">
+<div id="11a5ff07" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>self_rate <span class="op">=</span> df[[<span class="st">&#39;pref_o_attractive&#39;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_sincere&#39;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_intelligence&#39;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_funny&#39;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_ambitious&#39;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="co">#  , &#39;pref_o_shared_interests&#39;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;attractive&#39;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;sincere&#39;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;intelligence&#39;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;funny&#39;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;ambition&#39;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;decision_o&#39;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>              ]]</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># CHANGE test to see if their qualities and what the partner asked for lead to the partner choosing them</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># CHANGE test to see if people that rate themselves high on everything were more or less likely than people that rated themselves as low (to see acuracy of their traits)</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># What if having a low bar on who you would ask out was the deciding factor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Make a new data frame using the data I want to test for.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pref_o* = the preference of thier partner (0-100)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># attractive and other rows = how they see themselves (0-10)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># decision_o* = whether or not the partner asked them out (yes or no)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>self_rate <span class="op">=</span> df[[<span class="st">&#39;pref_o_attractive&#39;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_sincere&#39;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_intelligence&#39;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_funny&#39;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;pref_o_ambitious&#39;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="co">#  , &#39;pref_o_shared_interests&#39;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;attractive&#39;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;sincere&#39;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;intelligence&#39;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;funny&#39;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;ambition&#39;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&#39;decision_o&#39;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>              ]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="data-clean-up" class="level2">
-<h2 class="anchored" data-anchor-id="data-clean-up">Data clean up</h2>
-<div id="4916faf6" class="cell" data-execution_count="3">
+<div id="ac7d431d" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>self_rate.iloc[:,<span class="dv">0</span>:<span class="dv">5</span>] <span class="op">=</span> self_rate.iloc[:,<span class="dv">0</span>:<span class="dv">5</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="op">/</span> <span class="dv">10</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>self_rate.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">pref_o_attractive</th>
-<th data-quarto-table-cell-role="th">pref_o_sincere</th>
-<th data-quarto-table-cell-role="th">pref_o_intelligence</th>
-<th data-quarto-table-cell-role="th">pref_o_funny</th>
-<th data-quarto-table-cell-role="th">pref_o_ambitious</th>
-<th data-quarto-table-cell-role="th">attractive</th>
-<th data-quarto-table-cell-role="th">sincere</th>
-<th data-quarto-table-cell-role="th">intelligence</th>
-<th data-quarto-table-cell-role="th">funny</th>
-<th data-quarto-table-cell-role="th">ambition</th>
-<th data-quarto-table-cell-role="th">decision_o</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>3.5</td>
-<td>2.0</td>
-<td>2.0</td>
-<td>2.0</td>
-<td>0.0</td>
-<td>6.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>7.0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>6.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>4.0</td>
-<td>0.0</td>
-<td>6.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>7.0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>1.9</td>
-<td>1.8</td>
-<td>1.9</td>
-<td>1.8</td>
-<td>1.4</td>
-<td>6.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>7.0</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>3.0</td>
-<td>0.5</td>
-<td>1.5</td>
-<td>4.0</td>
-<td>0.5</td>
-<td>6.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>7.0</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>3.0</td>
-<td>1.0</td>
-<td>2.0</td>
-<td>1.0</td>
-<td>1.0</td>
-<td>6.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>8.0</td>
-<td>7.0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="split-data-into-train-and-test-sections-for-machine-learning." class="level2">
-<h2 class="anchored" data-anchor-id="split-data-into-train-and-test-sections-for-machine-learning.">Split data into train and test sections for machine learning.</h2>
-<div id="873aa5ab" class="cell" data-execution_count="4">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> self_rate.drop(columns <span class="op">=</span> [<span class="st">&#39;decision_o&#39;</span>])</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> self_rate[<span class="st">&#39;decision_o&#39;</span>]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(x, y, test_size <span class="op">=</span> <span class="fl">.2</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># CHANGE don&#39;t include random state in final project</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Data clean up</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>self_rate.iloc[:,<span class="dv">0</span>:<span class="dv">5</span>] <span class="op">=</span> self_rate.iloc[:,<span class="dv">0</span>:<span class="dv">5</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="op">/</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="teach-machine-learning-model-using-the-train-values." class="level2">
-<h2 class="anchored" data-anchor-id="teach-machine-learning-model-using-the-train-values.">Teach machine learning model using the train values.</h2>
-<div id="1e4a4079" class="cell" data-execution_count="5">
+<div id="d35bbc9b" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> RandomForestClassifier() <span class="co"># what classifier I&#39;m using, and it&#39;s params</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>classifier.fit(x_train, y_train) <span class="co"># what the classifier is testing(x_train) and predicting(y_train)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Split data into train and test sections for machine learning.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> self_rate.drop(columns <span class="op">=</span> [<span class="st">&#39;decision_o&#39;</span>])</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> self_rate[<span class="st">&#39;decision_o&#39;</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(x, y, test_size <span class="op">=</span> <span class="fl">.2</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CHANGE don&#39;t include random state in final project</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="ab5bd79c" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Teach machine learning model using the train values.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> RandomForestClassifier() <span class="co"># what classifier I&#39;m using, and it&#39;s params</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>classifier.fit(x_train, y_train) <span class="co"># what the classifier is testing(x_train) and predicting(y_train)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <style>#sk-container-id-1 {
@@ -5493,37 +5370,33 @@ display: block;
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier()</pre></div> </div></div></div></div>
 </div>
 </div>
-</section>
-<section id="show-accuracy-of-the-model." class="level2">
-<h2 class="anchored" data-anchor-id="show-accuracy-of-the-model.">Show accuracy of the model.</h2>
-<div id="13349cd7" class="cell" data-execution_count="6">
+<p>Below is the accuracy of the machine learning model. The numbers by the 1 is how good the model is at predicting if someone got asked out, and the numbers by the 0 is the model’s ability to predict if someone didn’t get asked out. So, the model is better at predicting if someone didn’t get asked out. This will play a role in the data later.</p>
+<div id="0501cb3d" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> classifier.predict(x_test)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, predictions))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Show accuracy of the model.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> classifier.predict(x_test)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, predictions))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
 
-           0       0.68      0.73      0.70      1006
-           1       0.55      0.50      0.52       670
+           0       0.67      0.75      0.71       961
+           1       0.59      0.49      0.54       715
 
-    accuracy                           0.63      1676
-   macro avg       0.62      0.61      0.61      1676
-weighted avg       0.63      0.63      0.63      1676
+    accuracy                           0.64      1676
+   macro avg       0.63      0.62      0.62      1676
+weighted avg       0.64      0.64      0.63      1676
 </code></pre>
 </div>
 </div>
-</section>
-<section id="show-what-variables-were-most-important-for-the-model." class="level2">
-<h2 class="anchored" data-anchor-id="show-what-variables-were-most-important-for-the-model.">Show what variables were most important for the model.</h2>
-<div id="225961f8" class="cell" data-execution_count="7">
+<div id="ec783945" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Show what variables were most important for the model.</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> x.columns</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>importance <span class="op">=</span> classifier.feature_importances_</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>data_group <span class="op">=</span> {<span class="st">&#39;Feature&#39;</span>: features, <span class="st">&#39;Importance&#39;</span>: importance}</span>
@@ -5532,22 +5405,21 @@ weighted avg       0.63      0.63      0.63      1676
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>importance_chart <span class="op">=</span> importance_chart.sort_values(<span class="st">&#39;Importance&#39;</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="graph-the-importance-levels-to-show-what-variables-were-most-important." class="level2">
-<h2 class="anchored" data-anchor-id="graph-the-importance-levels-to-show-what-variables-were-most-important.">Graph the importance levels to show what variables were most important.</h2>
-<div id="0132886b" class="cell" data-execution_count="8">
+<p>Below is a graph showing which features were most important to predict whether or not someone was asked out after speed dating. The variables titled ‘pref_o_…’ are traits the Dater’s partner said they were looking for, and the other traits are what the Dater rated themself out of 10.</p>
+<div id="e8500c46" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  ggplot(importance_chart, aes(<span class="st">&#39;Importance&#39;</span>, <span class="st">&#39;Feature&#39;</span>)) </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">+</span> geom_bar(stat <span class="op">=</span> <span class="st">&#39;identity&#39;</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">+</span> labs(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">&#39;Predictive Variables For Being Asked Out&#39;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Graph the importance levels to show what variables were most important.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  ggplot(importance_chart, aes(<span class="st">&#39;Importance&#39;</span>, <span class="st">&#39;Feature&#39;</span>)) </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">+</span> geom_bar(stat <span class="op">=</span> <span class="st">&#39;identity&#39;</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">+</span> labs(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">&#39;Predictive Variables For Being Asked Out&#39;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="8">
-   <div id="R4xkrE"></div>
+   <div id="k9J2mJ"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -5572,15 +5444,15 @@ weighted avg       0.63      0.63      0.63      1676
        };
    }
    
-   const containerDiv = document.getElementById("R4xkrE");
+   const containerDiv = document.getElementById("k9J2mJ");
    let fig = null;
    
    function renderPlot() {
        if (fig === null) {
            const plotSpec = {
 "data":{
-"Feature":["funny","attractive","intelligence","pref_o_intelligence","pref_o_funny","pref_o_ambitious","sincere","pref_o_sincere","ambition","pref_o_attractive"],
-"Importance":[0.07195401656408326,0.09386508094942192,0.09532423806525138,0.09842707163738135,0.09911448197788367,0.1000590207592872,0.10117758803380555,0.10607974970324516,0.11407287195803799,0.11992588035160252]
+"Feature":["funny","attractive","intelligence","sincere","pref_o_intelligence","pref_o_funny","pref_o_ambitious","pref_o_sincere","ambition","pref_o_attractive"],
+"Importance":[0.06770353443470538,0.09019508391942302,0.09309997460625104,0.0981982345972433,0.1008379103566864,0.10094542159664567,0.10552290645412934,0.10894856285230342,0.11045253961537616,0.12409583156723619]
 },
 "mapping":{
 "x":"Importance",
@@ -5657,26 +5529,28 @@ weighted avg       0.63      0.63      0.63      1676
    </script>
 </div>
 </div>
-<p>This graph shows that the preferences of someone’s partner durring speed dating were a better predictor on how likely they were to being asked out, than how they saw themselves. “Beauty is in the eye of the beholder.”</p>
-<p>Do people who rate themselves highly on desireable traits get asked out more?</p>
-<div id="0e5dafe0" class="cell" data-execution_count="9">
+<p>This graph shows that the preferences of someone’s partner durring speed dating were a better predictor on how likely they were to being asked out, rather than how they saw themselves. In other words “Beauty is in the eye of the beholder” applies to speed dating. But this graph doesn’t show what traits are more desirable than others. Let’s explore that next.</p>
+</section>
+<section id="do-people-who-rate-themselves-highly-on-desireable-traits-get-asked-out-more" class="level1">
+<h1>Do people who rate themselves highly on desireable traits get asked out more?</h1>
+<div id="53d68a49" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Isolate the self proclaimed attributes (such as how attractive someone thinks they are)</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Isolate the self proclaimed attributes (such as how attractive someone thinks they are)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>self_proclaim <span class="op">=</span> self_rate</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>self_proclaim[<span class="st">&#39;proclaimed attributes&#39;</span>] <span class="op">=</span> self_rate.loc[:,self_rate.iloc[:,<span class="dv">5</span>:<span class="dv">10</span>].columns].<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>self_proclaim[<span class="st">&#39;average of proclaimed attributes&#39;</span>] <span class="op">=</span> self_rate.loc[:,self_rate.iloc[:,<span class="dv">5</span>:<span class="dv">10</span>].columns].<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="8d0f78ee" class="cell" data-execution_count="10">
+<div id="8827aa64" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a chart with the mean values of people that got asked out VS. people that didn&#39;t.</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Make a chart with the mean values of people that got asked out VS. people that didn&#39;t.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>self_proclaim <span class="op">=</span>self_proclaim.groupby(<span class="st">&#39;decision_o&#39;</span>, as_index<span class="op">=</span><span class="va">False</span>).mean()</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>self_proclaim[<span class="st">&#39;decision of partner&#39;</span>] <span class="op">=</span> self_proclaim[<span class="st">&#39;decision_o&#39;</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">&#39;yes&#39;</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">&#39;no&#39;</span>)</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>self_proclaim[[<span class="st">&#39;decision of partner&#39;</span>, <span class="st">&#39;proclaimed attributes&#39;</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>self_proclaim[[<span class="st">&#39;decision of partner&#39;</span>, <span class="st">&#39;average of proclaimed attributes&#39;</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
@@ -5687,7 +5561,7 @@ weighted avg       0.63      0.63      0.63      1676
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">decision of partner</th>
-<th data-quarto-table-cell-role="th">proclaimed attributes</th>
+<th data-quarto-table-cell-role="th">average of proclaimed attributes</th>
 </tr>
 </thead>
 <tbody>
@@ -5707,10 +5581,9 @@ weighted avg       0.63      0.63      0.63      1676
 </div>
 </div>
 </div>
-<p>The above Table shows the mean number of all the traits someone rated themselves with (out of how attractive, sincere, intelligent, funny, and ambitious they were) grouped by whether or not they were asked out. It shows that the people that rated themselves high on those traits were just as likely to get asked out as the people that rated themselves low. This means that when speed dating the ammount of people that ask you out isn’t dependent on what kind of person you think you are.</p>
+<p>The above Table shows the mean number of all the traits someone rated themselves with (out of how attractive, sincere, intelligent, funny, and ambitious they were) grouped by whether or not they were asked out. It shows that the people that rated themselves high on those traits were just as likely to get asked out as the people that rated themselves low. This means that when speed dating the ammount of people that ask you out isn’t dependent on what kind of person you think you are. Which means that if you’re self consious and beat yourself up, don’t. You’re still just as attractive to speed daters.</p>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
