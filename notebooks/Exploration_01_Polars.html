@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>about me – Jason McGraw - Data Science Portfolio</title>
+<title>Data Exploration 01 – Jason McGraw - Data Science Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,31 +26,66 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./Images/favicon.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a349825961efc61a9088a720d0c3ab83.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-8d9f100f27cadfd32fbadcdf24319056.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-a349825961efc61a9088a720d0c3ab83.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Images/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a349825961efc61a9088a720d0c3ab83.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8d9f100f27cadfd32fbadcdf24319056.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a349825961efc61a9088a720d0c3ab83.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,10 +115,10 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -252,7 +287,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Jason McGraw - Data Science Portfolio</span>
     </a>
   </div>
@@ -263,35 +298,35 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.html"> 
+    <a class="nav-link" href="../resume.html"> 
 <span class="menu-text">My Resume</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cleansing.html"> 
+    <a class="nav-link" href="../cleansing.html"> 
 <span class="menu-text">Data Cleansing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./exploration.html"> 
+    <a class="nav-link" href="../exploration.html"> 
 <span class="menu-text">Data Exploration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./story_telling.html"> 
+    <a class="nav-link" href="../story_telling.html"> 
 <span class="menu-text">Story Telling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./ml.html"> 
+    <a class="nav-link" href="../ml.html"> 
 <span class="menu-text">Machine Learning</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./full_stack.html"> 
+    <a class="nav-link" href="../full_stack.html"> 
 <span class="menu-text">Full Stack</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./competition.html" aria-current="page"> 
+    <a class="nav-link" href="../competition.html"> 
 <span class="menu-text">Competition</span></a>
   </li>  
 </ul>
@@ -301,78 +336,38 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./competition.html">Competition</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./competition.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Competition</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Competition/project1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project 1</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Competition/project2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project 2</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Competition/project3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project 3</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Competition/project4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project 4</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Competition/project5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project 5</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#title-1-header" id="toc-title-1-header" class="nav-link active" data-scroll-target="#title-1-header">Title 1 Header</a>
+  <li><a href="#mpaa-movie-ratings" id="toc-mpaa-movie-ratings" class="nav-link active" data-scroll-target="#mpaa-movie-ratings">MPAA Movie Ratings:</a></li>
+  <li><a href="#part-1-import-polars" id="toc-part-1-import-polars" class="nav-link" data-scroll-target="#part-1-import-polars">Part 1: Import Polars</a></li>
+  <li><a href="#part-2-load-the-data" id="toc-part-2-load-the-data" class="nav-link" data-scroll-target="#part-2-load-the-data">Part 2: Load the data</a>
   <ul class="collapse">
-  <li><a href="#title-2-header" id="toc-title-2-header" class="nav-link" data-scroll-target="#title-2-header">Title 2 Header</a></li>
+  <li><a href="#initial-data-analysis" id="toc-initial-data-analysis" class="nav-link" data-scroll-target="#initial-data-analysis">Initial Data Analysis</a></li>
+  </ul></li>
+  <li><a href="#part-3-filter-the-data" id="toc-part-3-filter-the-data" class="nav-link" data-scroll-target="#part-3-filter-the-data">Part 3: Filter the Data</a>
+  <ul class="collapse">
+  <li><a href="#mpaa-ratings" id="toc-mpaa-ratings" class="nav-link" data-scroll-target="#mpaa-ratings">MPAA Ratings</a></li>
+  <li><a href="#more-filtering" id="toc-more-filtering" class="nav-link" data-scroll-target="#more-filtering">More Filtering</a></li>
+  </ul></li>
+  <li><a href="#part-4-visualization" id="toc-part-4-visualization" class="nav-link" data-scroll-target="#part-4-visualization">Part 4: Visualization</a>
+  <ul class="collapse">
+  <li><a href="#exploration-vs-presentation" id="toc-exploration-vs-presentation" class="nav-link" data-scroll-target="#exploration-vs-presentation">Exploration vs Presentation</a></li>
+  <li><a href="#visualization-tools" id="toc-visualization-tools" class="nav-link" data-scroll-target="#visualization-tools">Visualization Tools</a></li>
+  <li><a href="#lets-plot" id="toc-lets-plot" class="nav-link" data-scroll-target="#lets-plot">Let’s Plot</a></li>
+  <li><a href="#altair" id="toc-altair" class="nav-link" data-scroll-target="#altair">Altair</a></li>
+  <li><a href="#seaborn" id="toc-seaborn" class="nav-link" data-scroll-target="#seaborn">Seaborn</a></li>
+  </ul></li>
+  <li><a href="#part-5-interpretation-and-conclusions" id="toc-part-5-interpretation-and-conclusions" class="nav-link" data-scroll-target="#part-5-interpretation-and-conclusions">Part 5: Interpretation and Conclusions</a>
+  <ul class="collapse">
+  <li><a href="#above-and-beyond" id="toc-above-and-beyond" class="nav-link" data-scroll-target="#above-and-beyond">🌟 Above and Beyond 🌟</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -383,8 +378,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">about me</h1>
-<p class="subtitle lead">my data science portfolio</p>
+<h1 class="title">Data Exploration 01</h1>
 </div>
 
 
@@ -401,11 +395,198 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="title-1-header" class="level1">
-<h1>Title 1 Header</h1>
-<section id="title-2-header" class="level2">
-<h2 class="anchored" data-anchor-id="title-2-header">Title 2 Header</h2>
-<p><a href="https://quarto.org/docs/authoring/markdown-basics.html#links-images">MarkDown Basics</a></p>
+<p>A consumer watchdog group wants to see if Netflix has more movies for adults or children.</p>
+<p>Using a dataset containing metadata for all of the movies Netflix had available on their platform in 2019, we’ll use the MPAA movie rating system to determine if they are correct.</p>
+<section id="mpaa-movie-ratings" class="level2">
+<h2 class="anchored" data-anchor-id="mpaa-movie-ratings">MPAA Movie Ratings:</h2>
+<ul>
+<li>G: All ages admitted.</li>
+<li>PG: Some material may not be suitable for children.</li>
+<li>PG-13: Some material may be inappropriate for children under 13.</li>
+<li>R: Under 17 requires accompanying parent or adult guardian</li>
+<li>NC-17: No One 17 and Under Admitted</li>
+</ul>
+<p>Most people would consider G and PG as ratings suitable for children. However, not everyone would agree that a PG-13 movie is necssarily a children’s movie. It is up to you to decide how to handle this.</p>
+</section>
+<section id="part-1-import-polars" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-import-polars">Part 1: Import Polars</h2>
+<p>The <code>polars library</code> is a python library used for data analysis and manipulation. It will provide the core functionality for most of what you do in the data exploration and preprocessing stages of most machine learning projects.</p>
+<p>Please see <a href="https://docs.pola.rs/user-guide/getting-started/">this Getting Started Guide</a> for information on the conventional way to import Polars into your project, as well as other helpful tips for common Polars tasks.</p>
+<div id="cell-3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part 1: Enter the code below to import Polars according to the</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># conventional method.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Polars <span class="im">as</span> pl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="part-2-load-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-load-the-data">Part 2: Load the data</h2>
+<p>The dataset for this exploration is stored at the following url:</p>
+<p><a href="https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/netflix_titles.csv">https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/netflix_titles.csv</a></p>
+<p>There are lots of ways to load data into your workspace. The easiest way in this case is to <a href="https://docs.pola.rs/user-guide/getting-started/#reading-writing">ask Polars to do it for you</a>.</p>
+<section id="initial-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="initial-data-analysis">Initial Data Analysis</h3>
+<p>Once you’ve loaded the data, it’s a good idea to poke around a little bit to find out what you’re dealing with.</p>
+<p>Some questions you might ask include:</p>
+<ul>
+<li>What does the data look like?</li>
+<li>What kind of data is in each column?</li>
+<li>Do any of the columns have missing values?</li>
+</ul>
+<div id="cell-5" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part 2: Load the dataset into a Polars dataframe.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, explore the data by seeing what the first few rows look like.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Next, display a technical summary of the data to determine the data types of each column, and which columns have missing data.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="part-3-filter-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-filter-the-data">Part 3: Filter the Data</h2>
+<p>Since we’re just interested in movies, we’ll need to <a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html">filter out anything</a> that isn’t a movie for our analysis. The <code>type</code> feature contains this information.</p>
+<p>Once we have the subset, we should see how many rows it contains. There are a <a href="https://stackoverflow.com/a/38025280/28106">variety of ways to get the length of a data frame</a>.</p>
+<div id="cell-9" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use polars's filtering abilitites to select the subset of data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that represents movies, then calculate how many rows are in the filtered data.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="mpaa-ratings" class="level3">
+<h3 class="anchored" data-anchor-id="mpaa-ratings">MPAA Ratings</h3>
+<p>Now that we have only movies, let’s get a <a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html">quick count of the values being used</a> in the <code>rating</code> feature.</p>
+<div id="cell-11" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the number of records for each value of the "rating" feature.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember to count the values in your subset only, not in the original dataframe.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="more-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="more-filtering">More Filtering</h3>
+<p>There are apparently some “made for TV” movies in the list that don’t fit the MPAA rating scheme.</p>
+<p>Let’s <a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html">filter some more</a> to just see movies rated with the standard MPAA ratings of G, PG, PG-13, R, and NC-17.</p>
+<div id="cell-13" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the list of movies to select a new subset containing only movies with</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a standard MPAA rating. Calculate how many rows are in this new set, and</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># then see which ratings appear most often.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="part-4-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-visualization">Part 4: Visualization</h2>
+<p>Now that we have explored and preprocessed our data, let’s create a visualization to summarize our findings.</p>
+<section id="exploration-vs-presentation" class="level3">
+<h3 class="anchored" data-anchor-id="exploration-vs-presentation">Exploration vs Presentation</h3>
+<p>Broadly speaking, there are two types of visualizations: * Barebones visualizations you might use to get a quick, visual understanding of the data while you’re trying to decide how it all fits together. * Presentation-quality visualizations that you would include in a report or presentation for management or other stakeholders.</p>
+</section>
+<section id="visualization-tools" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-tools">Visualization Tools</h3>
+<p>There are many different visualization tools availble. In the sections below, we’ll explore the three most common. Each of these libraries has strengths and weaknesses.</p>
+<p>It is probably a good idea for you to become familiar with each one, and then become proficient at whichever one you like the best.</p>
+</section>
+<section id="lets-plot" class="level3">
+<h3 class="anchored" data-anchor-id="lets-plot">Let’s Plot</h3>
+<p>The Let’s Plot visualization library uses a grammer of graphics to build up a chart piece by piece.</p>
+<p>Assume we have a polars dataframe called <code>employees</code>, with three columns: <code>name</code>, <code>job</code>, <code>salary</code>.</p>
+<pre><code># Make a box plot style categorical plot showing the distribution of salaries for each job:
+ggplot(data=employees, aes(x='job', y='salary')) + geom_box()
+
+# Make a box plot style categorical plot, and customize the results
+(
+    ggplot(data=employees, aes(x='job', y='salary'))
+    + geom_boxplot()
+    + labs(
+        title='Salaries by Job Title'
+    )
+)</code></pre>
+<p>Dependencies need to be installed in colab to use Let’s Plot. Use <code>%pip</code> to install it. <code>%pip install lets-plot</code> will install the library, and skip it if it’s already installed.</p>
+<div id="cell-17" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the lets-plot module into this server</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install lets<span class="op">-</span>plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><em>Like</em> with Polars, there is a <a href="https://lets-plot.org/python/index.html#python-index-user-guide">conventional way to import Let’s Plot</a> into your projects.</p>
+<div id="cell-19" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the Let's Plot library the conventional way.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s create a barchart showing the count of each movie rating by using Let’s Plot’s capabilities.</p>
+<p>In <a href="https://aeturrell.github.io/python4DS/data-visualise.html#a-categorical-variable">this example</a>, we see the x axis being set to a feature called <code>species</code>, and the y axis is a count of the number of rows for that <code>species</code>.</p>
+<p>In our case, we want the x-axis to be set to <code>rating</code>.</p>
+</section>
+<section id="altair" class="level3">
+<h3 class="anchored" data-anchor-id="altair">Altair</h3>
+<p>The Altair visualization library provides a large variety of very easy to use statistical charting tools.</p>
+<p>Altair uses a declarative language to build up charts piece by piece.</p>
+<p>Assume we have a pandas dataframe called <code>employees</code>, with three columns: <code>name</code>, <code>job</code>, <code>salary</code>.</p>
+<pre><code># Make a box plot style categorical plot showing the distribution of salaries for each job:
+alt.Chart(employees).mark_boxplot().encode(
+    x='job',
+    y='salary'
+)
+
+# Make a box plot style categorical plot, and customize the results
+alt.Chart(employees).mark_boxplot().encode(
+    alt.X('job', title='Job title'),
+    alt.Y('salary', title='Annual salary in thousands of $USD')
+).properties(
+  title='Salaries by Job Title'
+)</code></pre>
+<p><em>Like</em> with Polars, there is a <a href="https://altair-viz.github.io/getting_started/starting.html#the-chart-object">conventional way to import Altair</a> into your projects.</p>
+<div id="cell-24" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the Altair library the conventional way.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s create a barchart showing the count of each movie rating by using Altair’s aggregation capabilities.</p>
+<p>In <a href="https://altair-viz.github.io/getting_started/starting.html#data-transformation-aggregation">this example</a>, we see the x axis being set to a feature called <code>a</code>, and the y axis set to the <code>average()</code> of a feature called <code>b</code>.</p>
+<p>In our case, we want the x axis to be set to <code>rating</code> and the y axis to be the <code>count()</code> of <code>rating</code>.</p>
+<div id="cell-26" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Altair to create a bar chart comparing the count of each movie rating</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="seaborn" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn">Seaborn</h3>
+<p>While Altair uses a “declarative” syntax for building charts piece by piece, the Seaborn library provides a large variety of pre-made charts for common statistical needs.</p>
+<p>These charts are divided into different categories. Each category has a high-level interface you can use for simplicity, and then a specific function for each chart that you can use if you need more control over how the chart looks.</p>
+<p>Seaborn uses matplotlib for its drawing, and the chart-specific functions each return a matplitlib axes object if you need additional customization.</p>
+<p>For example, there are several different types of categorical plots in seaborn: bar plots, box plots, point plots, count plots, swarm plots, etc…</p>
+<p>Each of these plots can be accessed using the <code>catplot</code> function.</p>
+<p>Assume we have a pandas dataframe called <code>employees</code>, with three columns: <code>name</code>, <code>job</code>, <code>salary</code>.</p>
+<pre><code># Make a box plot style categorical plot showing the distribution of salaries for each job:
+sns.catplot(data=employees, x='job', y='salary', kind='box')
+
+# Make a swarm plot style categorical plot
+sns.catplot(data=employees, x='job', y='salary', kind='swarm')</code></pre>
+<p>Alternatively, you can use the plot specific functions to give yourself more control over the output by using matplotlib functions:</p>
+<pre><code># Make a box plot style categorical plot, and customize the results
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12, 9))
+ax = sns.boxplot(data=employees, x='job', y='salary')
+ax.set_title("Salaries by Job Title")
+ax.set_ylabel("Annual salary in thousands of $USD")
+ax.set_xlabel("Job title")</code></pre>
+<p>Like with Polars, there is a <a href="https://seaborn.pydata.org/tutorial/relational.html">conventional way to import Seaborn</a> into your projects.</p>
+<p>Optionally, you may wish to set some default chart aesthetics by <a href="https://seaborn.pydata.org/tutorial/aesthetics.html">setting the chart style</a>.</p>
+<div id="cell-29" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the seaborn library the conventional way. Then optionally configure</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the default chart style.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Since the <code>rating</code> column uses categorical data, we need to use Seaborn’s <a href="https://seaborn.pydata.org/tutorial/categorical.html">categorical visualizations</a>.</p>
+<p>In particular, we want a “count plot” that will display a count of movie ratings.</p>
+<div id="cell-31" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use seaborn to create a count plot comparing the count of each movie rating</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="part-5-interpretation-and-conclusions" class="level1">
+<h1>Part 5: Interpretation and Conclusions</h1>
+<p>Now that you’ve seen the data, what is your conclusion? Is the watchdog group correct that Netflix has more movies for adults than for children? Are there any caveats you’d include in your analysis?</p>
+<p>Write your summary here:</p>
+<section id="above-and-beyond" class="level2">
+<h2 class="anchored" data-anchor-id="above-and-beyond">🌟 Above and Beyond 🌟</h2>
+<p>After reviewing your findings, the watchdog group would like some additional questions answered:</p>
+<ol type="1">
+<li><p>How are things affected if you include the “made for TV movies” that have been assigned <a href="https://en.wikipedia.org/wiki/Television_content_rating_system#United_States">TV ratings</a> in your analysis, but still exclude unrated movies?</p></li>
+<li><p>They would also like to see a separate report that includes only TV shows.</p></li>
+<li><p>For an upcoming community meeting, the group would like to present a simple chart showing “For Kids” and “For Adults” categories. The easiest way to accomplish this would be to <a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/10_text_data.html">create a new column in your data frame that maps</a> each rating to the appropriate “For Kids” or “For Adults” label, then create a new visualization based on that column.</p></li>
+</ol>
 
 
 </section>

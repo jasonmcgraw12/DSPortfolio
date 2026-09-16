@@ -1,427 +1,5 @@
 [
   {
-    "objectID": "Machine_Learning/project4.html",
-    "href": "Machine_Learning/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 4"
-    ]
-  },
-  {
-    "objectID": "Machine_Learning/project1.html",
-    "href": "Machine_Learning/project1.html",
-    "title": "Client Report - What Do People See in Romance?",
-    "section": "",
-    "text": "Have you ever wondered what you could do to increase your chances of getting a date? What makes someone desireable? I’m here to answer those questions using data science! The first question I would like to ask is…\n\nWhat variables are important to getting asked out?\nIn order to answer this question I’m going to use a machine learning model to take in data, then I’ll have it tell us what factors went into it’s predicitons. Follow me.\n\n\nShow the code\n## Import libraries and data frame.\nimport numpy as np\nimport pandas as pd\nfrom lets_plot import *\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/datasets/speed-dating/refs/heads/main/data/speed-dating.csv\")\n# Information of data set https://www.openml.org/search?type=data&sort=runs&id=40536&status=active\nLetsPlot.setup_html()\n\n\n\n            \n            \n            \n\n\n\n\nShow the code\n## Make a new data frame using the data I want to test for.\n# pref_o* = the preference of thier partner (0-100)\n# attractive and other rows = how they see themselves (0-10)\n# decision_o* = whether or not the partner asked them out (yes or no)\nself_rate = df[['pref_o_attractive'\n              , 'pref_o_sincere'\n              , 'pref_o_intelligence'\n              , 'pref_o_funny'\n              , 'pref_o_ambitious'\n            #  , 'pref_o_shared_interests'\n              , 'attractive'\n              , 'sincere'\n              , 'intelligence'\n              , 'funny'\n              , 'ambition'\n              , 'decision_o'\n              ]]\n\n\n\n\nShow the code\n## Data clean up\nself_rate.iloc[:,0:5] = self_rate.iloc[:,0:5].apply(lambda x: x / 10)\n\n\n\n\nShow the code\n## Split data into train and test sections for machine learning.\nimport sklearn\nfrom sklearn.model_selection import train_test_split\n\nx = self_rate.drop(columns = ['decision_o'])\ny = self_rate['decision_o']\n\nx_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .2)\n# CHANGE don't include random state in final project\n\n\n\n\nShow the code\n## Teach machine learning model using the train values.\nfrom sklearn.ensemble import RandomForestClassifier\n\nclassifier = RandomForestClassifier() # what classifier I'm using, and it's params\n\nclassifier.fit(x_train, y_train) # what the classifier is testing(x_train) and predicting(y_train)\n\n\nRandomForestClassifier()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.RandomForestClassifier?Documentation for RandomForestClassifieriFittedRandomForestClassifier() \n\n\nBelow is the accuracy of the machine learning model. The numbers by the 1 is how good the model is at predicting if someone got asked out, and the numbers by the 0 is the model’s ability to predict if someone didn’t get asked out. So, the model is better at predicting if someone didn’t get asked out. This will play a role in the data later.\n\n\nShow the code\n## Show accuracy of the model.\npredictions = classifier.predict(x_test)\n\nfrom sklearn.metrics import classification_report\n\nprint(classification_report(y_test, predictions))\n\n\n              precision    recall  f1-score   support\n\n           0       0.67      0.75      0.71       961\n           1       0.59      0.49      0.54       715\n\n    accuracy                           0.64      1676\n   macro avg       0.63      0.62      0.62      1676\nweighted avg       0.64      0.64      0.63      1676\n\n\n\n\n\nShow the code\n## Show what variables were most important for the model.\nfeatures = x.columns\nimportance = classifier.feature_importances_\ndata_group = {'Feature': features, 'Importance': importance}\n\nimportance_chart = pd.DataFrame(data_group)\nimportance_chart = importance_chart.sort_values('Importance').head(10)\n\n\nBelow is a graph showing which features were most important to predict whether or not someone was asked out after speed dating. The variables titled ‘pref_o_…’ are traits the Dater’s partner said they were looking for, and the other traits are what the Dater rated themself out of 10.\n\n\nShow the code\n## Graph the importance levels to show what variables were most important.\n(\n  ggplot(importance_chart, aes('Importance', 'Feature')) \n  + geom_bar(stat = 'identity')\n  + labs(\n    title='Predictive Variables For Being Asked Out'\n  )\n)\n\n\n   \n   \n\n\nThis graph shows that the preferences of someone’s partner durring speed dating were a better predictor on how likely they were to being asked out, rather than how they saw themselves. In other words “Beauty is in the eye of the beholder” applies to speed dating. But this graph doesn’t show what traits are more desirable than others. Let’s explore that next.\n\n\nDo people who rate themselves highly on desireable traits get asked out more?\n\n\nShow the code\n## Isolate the self proclaimed attributes (such as how attractive someone thinks they are)\nself_proclaim = self_rate\nself_proclaim['average of proclaimed attributes'] = self_rate.loc[:,self_rate.iloc[:,5:10].columns].sum(axis = 1)\n\n\n\n\nShow the code\n## Make a chart with the mean values of people that got asked out VS. people that didn't.\nself_proclaim =self_proclaim.groupby('decision_o', as_index=False).mean()\n\n\nself_proclaim['decision of partner'] = self_proclaim['decision_o'].apply(lambda x: 'yes' if x == 1 else 'no')\n\nself_proclaim[['decision of partner', 'average of proclaimed attributes']]\n\n\n\n\n\n\n\n\n\ndecision of partner\naverage of proclaimed attributes\n\n\n\n\n0\nno\n38.487353\n\n\n1\nyes\n38.700711\n\n\n\n\n\n\n\nThe above Table shows the mean number of all the traits someone rated themselves with (out of how attractive, sincere, intelligent, funny, and ambitious they were) grouped by whether or not they were asked out. It shows that the people that rated themselves high on those traits were just as likely to get asked out as the people that rated themselves low. This means that when speed dating the ammount of people that ask you out isn’t dependent on what kind of person you think you are. Which means that if you’re self consious and beat yourself up, don’t. You’re still just as attractive to speed daters.\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Machine_Learning/project3.html",
-    "href": "Machine_Learning/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "exploration.html",
-    "href": "exploration.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Exploration"
-    ]
-  },
-  {
-    "objectID": "exploration.html#title-2-header",
-    "href": "exploration.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Exploration"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project4.html",
-    "href": "Story_Telling/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 4"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project1.html",
-    "href": "Story_Telling/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project3.html",
-    "href": "Story_Telling/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Competition/project2.html",
-    "href": "Competition/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Competition/project5.html",
-    "href": "Competition/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
-      "Project 5"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project4.html",
-    "href": "Cleansing_Projects/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 4"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project1.html",
-    "href": "Cleansing_Projects/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project3.html",
-    "href": "Cleansing_Projects/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Exploration/project2.html",
-    "href": "Cleansing_Exploration/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project5.html",
-    "href": "Cleansing_Exploration/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "competition.html",
-    "href": "competition.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "competition.html#title-2-header",
-    "href": "competition.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project4.html",
-    "href": "Full_Stack/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 4"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project1.html",
-    "href": "Full_Stack/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project3.html",
-    "href": "Full_Stack/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "story_telling.html",
-    "href": "story_telling.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Story Telling"
-    ]
-  },
-  {
-    "objectID": "story_telling.html#title-2-header",
-    "href": "story_telling.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Story Telling"
-    ]
-  },
-  {
-    "objectID": "ml.html",
-    "href": "ml.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Machine Learning"
-    ]
-  },
-  {
-    "objectID": "ml.html#title-2-header",
-    "href": "ml.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Machine Learning"
-    ]
-  },
-  {
-    "objectID": "cleansing.html",
-    "href": "cleansing.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Cleansing"
-    ]
-  },
-  {
-    "objectID": "cleansing.html#title-2-header",
-    "href": "cleansing.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Cleansing"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project5.html",
-    "href": "Full_Stack/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 5"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project2.html",
-    "href": "Full_Stack/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics"
-  },
-  {
-    "objectID": "index.html#title-2-header",
-    "href": "index.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project3.html",
-    "href": "Cleansing_Exploration/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project1.html",
-    "href": "Cleansing_Exploration/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project4.html",
-    "href": "Cleansing_Exploration/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Projects/project5.html",
-    "href": "Cleansing_Projects/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 5"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project2.html",
-    "href": "Cleansing_Projects/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Competition/project3.html",
-    "href": "Competition/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Competition/project1.html",
-    "href": "Competition/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Competition/project4.html",
-    "href": "Competition/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
-      "Project 4"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project5.html",
-    "href": "Story_Telling/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 5"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project2.html",
-    "href": "Story_Telling/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "full_stack.html",
-    "href": "full_stack.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Full Stack"
-    ]
-  },
-  {
-    "objectID": "full_stack.html#title-2-header",
-    "href": "full_stack.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Full Stack"
-    ]
-  },
-  {
     "objectID": "resume.html",
     "href": "resume.html",
     "title": "Jason McGraw’s CV",
@@ -450,6 +28,403 @@
     "text": "2019 Eagle Scout\n2019 Growth Mindset Award | Acquired March 22, 2019"
   },
   {
+    "objectID": "cleansing.html",
+    "href": "cleansing.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Cleansing"
+    ]
+  },
+  {
+    "objectID": "cleansing.html#title-2-header",
+    "href": "cleansing.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Cleansing"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Exploration/project1.html",
+    "href": "Cleansing_Exploration/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project4.html",
+    "href": "Cleansing_Exploration/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Competition/project2.html",
+    "href": "Competition/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Competition/project3.html",
+    "href": "Competition/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Competition/project5.html",
+    "href": "Competition/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html",
+    "href": "Machine_Learning/project1.html",
+    "title": "Client Report - What Do People See in Romance?",
+    "section": "",
+    "text": "Have you ever wondered what you could do to increase your chances of getting a date? What makes someone desireable? I’m here to answer those questions using data science! The first question I would like to ask is…\n\nWhat variables are important to getting asked out?\nIn order to answer this question I’m going to use a machine learning model to take in data, then I’ll have it tell us what factors went into it’s predicitons. Follow me.\n\n\nShow the code\n## Import libraries and data frame.\nimport numpy as np\nimport pandas as pd\nfrom lets_plot import *\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/datasets/speed-dating/refs/heads/main/data/speed-dating.csv\")\n# Information of data set https://www.openml.org/search?type=data&sort=runs&id=40536&status=active\nLetsPlot.setup_html()\n\n\n\n        \n        \n        \n\n\n\n\nShow the code\n## Make a new data frame using the data I want to test for.\n# pref_o* = the preference of thier partner (0-100)\n# attractive and other rows = how they see themselves (0-10)\n# decision_o* = whether or not the partner asked them out (yes or no)\nself_rate = df[['pref_o_attractive'\n              , 'pref_o_sincere'\n              , 'pref_o_intelligence'\n              , 'pref_o_funny'\n              , 'pref_o_ambitious'\n            #  , 'pref_o_shared_interests'\n              , 'attractive'\n              , 'sincere'\n              , 'intelligence'\n              , 'funny'\n              , 'ambition'\n              , 'decision_o'\n              ]]\n\n\n\n\nShow the code\n## Data clean up\nself_rate.iloc[:,0:5] = self_rate.iloc[:,0:5].apply(lambda x: x / 10)\n\n\n\n\nShow the code\n## Split data into train and test sections for machine learning.\nimport sklearn\nfrom sklearn.model_selection import train_test_split\n\nx = self_rate.drop(columns = ['decision_o'])\ny = self_rate['decision_o']\n\nx_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .2)\n# CHANGE don't include random state in final project\n\n\n\n\nShow the code\n## Teach machine learning model using the train values.\nfrom sklearn.ensemble import RandomForestClassifier\n\nclassifier = RandomForestClassifier() # what classifier I'm using, and it's params\n\nclassifier.fit(x_train, y_train) # what the classifier is testing(x_train) and predicting(y_train)\n\n\nRandomForestClassifier()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.RandomForestClassifier?Documentation for RandomForestClassifieriFitted\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\n\nn_estimators  n_estimators: int, default=100\n\nThe number of trees in the forest.\n\n.. versionchanged:: 0.22\nThe default value of ``n_estimators`` changed from 10 to 100\nin 0.22.\n100\n\n\n\n\ncriterion  criterion: {\"gini\", \"entropy\", \"log_loss\"}, default=\"gini\"\n\nThe function to measure the quality of a split. Supported criteria are\n\"gini\" for the Gini impurity and \"log_loss\" and \"entropy\" both for the\nShannon information gain, see :ref:`tree_mathematical_formulation`.\nNote: This parameter is tree-specific.\n'gini'\n\n\n\n\nmax_depth  max_depth: int, default=None\n\nThe maximum depth of the tree. If None, then nodes are expanded until\nall leaves are pure or until all leaves contain less than\nmin_samples_split samples.\nNone\n\n\n\n\nmin_samples_split  min_samples_split: int or float, default=2\n\nThe minimum number of samples required to split an internal node:\n\n- If int, then consider `min_samples_split` as the minimum number.\n- If float, then `min_samples_split` is a fraction and\n`ceil(min_samples_split * n_samples)` are the minimum\nnumber of samples for each split.\n\n.. versionchanged:: 0.18\nAdded float values for fractions.\n2\n\n\n\n\nmin_samples_leaf  min_samples_leaf: int or float, default=1\n\nThe minimum number of samples required to be at a leaf node.\nA split point at any depth will only be considered if it leaves at\nleast ``min_samples_leaf`` training samples in each of the left and\nright branches. This may have the effect of smoothing the model,\nespecially in regression.\n\n- If int, then consider `min_samples_leaf` as the minimum number.\n- If float, then `min_samples_leaf` is a fraction and\n`ceil(min_samples_leaf * n_samples)` are the minimum\nnumber of samples for each node.\n\n.. versionchanged:: 0.18\nAdded float values for fractions.\n1\n\n\n\n\nmin_weight_fraction_leaf  min_weight_fraction_leaf: float, default=0.0\n\nThe minimum weighted fraction of the sum total of weights (of all\nthe input samples) required to be at a leaf node. Samples have\nequal weight when sample_weight is not provided.\n0.0\n\n\n\n\nmax_features  max_features: {\"sqrt\", \"log2\", None}, int or float, default=\"sqrt\"\n\nThe number of features to consider when looking for the best split:\n\n- If int, then consider `max_features` features at each split.\n- If float, then `max_features` is a fraction and\n`max(1, int(max_features * n_features_in_))` features are considered at each\nsplit.\n- If \"sqrt\", then `max_features=sqrt(n_features)`.\n- If \"log2\", then `max_features=log2(n_features)`.\n- If None, then `max_features=n_features`.\n\n.. versionchanged:: 1.1\nThe default of `max_features` changed from `\"auto\"` to `\"sqrt\"`.\n\nNote: the search for a split does not stop until at least one\nvalid partition of the node samples is found, even if it requires to\neffectively inspect more than ``max_features`` features.\n'sqrt'\n\n\n\n\nmax_leaf_nodes  max_leaf_nodes: int, default=None\n\nGrow trees with ``max_leaf_nodes`` in best-first fashion.\nBest nodes are defined as relative reduction in impurity.\nIf None then unlimited number of leaf nodes.\nNone\n\n\n\n\nmin_impurity_decrease  min_impurity_decrease: float, default=0.0\n\nA node will be split if this split induces a decrease of the impurity\ngreater than or equal to this value.\n\nThe weighted impurity decrease equation is the following::\n\nN_t / N * (impurity - N_t_R / N_t * right_impurity\n- N_t_L / N_t * left_impurity)\n\nwhere ``N`` is the total number of samples, ``N_t`` is the number of\nsamples at the current node, ``N_t_L`` is the number of samples in the\nleft child, and ``N_t_R`` is the number of samples in the right child.\n\n``N``, ``N_t``, ``N_t_R`` and ``N_t_L`` all refer to the weighted sum,\nif ``sample_weight`` is passed.\n\n.. versionadded:: 0.19\n0.0\n\n\n\n\nbootstrap  bootstrap: bool, default=True\n\nWhether bootstrap samples are used when building trees. If False, the\nwhole dataset is used to build each tree.\nTrue\n\n\n\n\noob_score  oob_score: bool or callable, default=False\n\nWhether to use out-of-bag samples to estimate the generalization score.\nBy default, :func:`~sklearn.metrics.accuracy_score` is used.\nProvide a callable with signature `metric(y_true, y_pred)` to use a\ncustom metric. Only available if `bootstrap=True`.\n\nFor an illustration of out-of-bag (OOB) error estimation, see the example\n:ref:`sphx_glr_auto_examples_ensemble_plot_ensemble_oob.py`.\nFalse\n\n\n\n\nn_jobs  n_jobs: int, default=None\n\nThe number of jobs to run in parallel. :meth:`fit`, :meth:`predict`,\n:meth:`decision_path` and :meth:`apply` are all parallelized over the\ntrees. ``None`` means 1 unless in a :obj:`joblib.parallel_backend`\ncontext. ``-1`` means using all processors. See :term:`Glossary\n&lt;n_jobs&gt;` for more details.\nNone\n\n\n\n\nrandom_state  random_state: int, RandomState instance or None, default=None\n\nControls both the randomness of the bootstrapping of the samples used\nwhen building trees (if ``bootstrap=True``) and the sampling of the\nfeatures to consider when looking for the best split at each node\n(if ``max_features &lt; n_features``).\nSee :term:`Glossary &lt;random_state&gt;` for details.\nNone\n\n\n\n\nverbose  verbose: int, default=0\n\nControls the verbosity when fitting and predicting.\n0\n\n\n\n\nwarm_start  warm_start: bool, default=False\n\nWhen set to ``True``, reuse the solution of the previous call to fit\nand add more estimators to the ensemble, otherwise, just fit a whole\nnew forest. See :term:`Glossary &lt;warm_start&gt;` and\n:ref:`tree_ensemble_warm_start` for details.\nFalse\n\n\n\n\nclass_weight  class_weight: {\"balanced\", \"balanced_subsample\"}, dict or list of dicts, default=None\n\nWeights associated with classes in the form ``{class_label: weight}``.\nIf not given, all classes are supposed to have weight one. For\nmulti-output problems, a list of dicts can be provided in the same\norder as the columns of y.\n\nNote that for multioutput (including multilabel) weights should be\ndefined for each class of every column in its own dict. For example,\nfor four-class multilabel classification weights should be\n[{0: 1, 1: 1}, {0: 1, 1: 5}, {0: 1, 1: 1}, {0: 1, 1: 1}] instead of\n[{1:1}, {2:5}, {3:1}, {4:1}].\n\nThe \"balanced\" mode uses the values of y to automatically adjust\nweights inversely proportional to class frequencies in the input data\nas ``n_samples / (n_classes * np.bincount(y))``\n\nThe \"balanced_subsample\" mode is the same as \"balanced\" except that\nweights are computed based on the bootstrap sample for every tree\ngrown.\n\nFor multi-output, the weights of each column of y will be multiplied.\n\nNote that these weights will be multiplied with sample_weight (passed\nthrough the fit method) if sample_weight is specified.\nNone\n\n\n\n\nccp_alpha  ccp_alpha: non-negative float, default=0.0\n\nComplexity parameter used for Minimal Cost-Complexity Pruning. The\nsubtree with the largest cost complexity that is smaller than\n``ccp_alpha`` will be chosen. By default, no pruning is performed. See\n:ref:`minimal_cost_complexity_pruning` for details. See\n:ref:`sphx_glr_auto_examples_tree_plot_cost_complexity_pruning.py`\nfor an example of such pruning.\n\n.. versionadded:: 0.22\n0.0\n\n\n\n\nmax_samples  max_samples: int or float, default=None\n\nIf bootstrap is True, the number of samples to draw from X\nto train each base estimator.\n\n- If None (default), then draw `X.shape[0]` samples irrespective of\n`sample_weight`.\n- If int, then draw `max_samples` samples.\n- If float, then draw `max_samples * X.shape[0]` unweighted samples\nor `max_samples * sample_weight.sum()` weighted samples.\n\n.. versionadded:: 0.22\n\n.. versionchanged:: 1.9\nFloat `max_samples` is relative to `sample_weight.sum()` instead of\n`X.shape[0]` for weighted samples.\nNone\n\n\n\n\nmonotonic_cst  monotonic_cst: array-like of int of shape (n_features,), default=None\n\nIndicates the monotonicity constraint to enforce on each feature.\n- 1: monotonically increasing\n- 0: no constraint\n- -1: monotonically decreasing\n\nIf monotonic_cst is None, no constraints are applied.\n\nMonotonicity constraints are not supported for:\n- multiclass classifications (i.e. when `n_classes &gt; 2`),\n- multioutput classifications (i.e. when `n_outputs_ &gt; 1`).\n\nThe constraints hold over the probability of the positive class.\n\nRead more in the :ref:`User Guide &lt;monotonic_cst_gbdt&gt;`.\n\n.. versionadded:: 1.4\nNone\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\nclasses_  classes_: ndarray of shape (n_classes,) or a list of such arrays\n\nThe classes labels (single output problem), or a list of arrays of\nclass labels (multi-output problem).\nndarray[int64](2,)\n[0,1]\n\n\nestimator_  estimator_: :class:`~sklearn.tree.DecisionTreeClassifier`\n\nThe child estimator template used to create the collection of fitted\nsub-estimators.\n\n.. versionadded:: 1.2\n`base_estimator_` was renamed to `estimator_`.\nDecisionTreeClassifier\nDecisionTreeClassifier()\n\n\nestimators_  estimators_: list of DecisionTreeClassifier\n\nThe collection of fitted sub-estimators.\nlist\n[DecisionTreeC...ate=295414187), DecisionTreeC...ate=566156091), DecisionTreeC...te=2027147438), DecisionTreeC...ate=363241788), ...]\n\n\nestimators_samples_  estimators_samples_: list of arrays\n\nThe subset of drawn samples (i.e., the in-bag samples) for each base\nestimator. Each subset is defined by an array of the indices selected.\n\n.. versionadded:: 1.4\nlist\n[array([2055, ..., dtype=int32), array([5314, ..., dtype=int32), array([2861, ..., dtype=int32), array([ 293, ..., dtype=int32), ...]\n\n\nfeature_importances_  feature_importances_: ndarray of shape (n_features,)\n\nThe impurity-based feature importances.\nThe higher, the more important the feature.\nThe importance of a feature is computed as the (normalized)\ntotal reduction of the criterion brought by that feature. It is also\nknown as the Gini importance.\n\nWarning: impurity-based feature importances can be misleading for\nhigh cardinality features (many unique values). See\n:func:`sklearn.inspection.permutation_importance` as an alternative.\nndarray[float64](10,)\n[0.12,0.11,0.1 ,...,0.09,0.07,0.11]\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Defined only when `X`\nhas feature names that are all strings.\n\n.. versionadded:: 1.0\nndarray[object](10,)\n['pref_o_attractive','pref_o_sincere','pref_o_intelligence',..., 'intelligence','funny','ambition']\n\n\nn_classes_  n_classes_: int or list\n\nThe number of classes (single output problem), or a list containing the\nnumber of classes for each output (multi-output problem).\nint\n2\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`.\n\n.. versionadded:: 0.24\nint\n10\n\n\nn_outputs_  n_outputs_: int\n\nThe number of outputs when ``fit`` is performed.\nint\n1\n\n\n\n\n            \n        \n    \n\n\nBelow is the accuracy of the machine learning model. The numbers by the 1 is how good the model is at predicting if someone got asked out, and the numbers by the 0 is the model’s ability to predict if someone didn’t get asked out. So, the model is better at predicting if someone didn’t get asked out. This will play a role in the data later.\n\n\nShow the code\n## Show accuracy of the model.\npredictions = classifier.predict(x_test)\n\nfrom sklearn.metrics import classification_report\n\nprint(classification_report(y_test, predictions))\n\n\n              precision    recall  f1-score   support\n\n           0       0.67      0.76      0.71       975\n           1       0.59      0.48      0.53       701\n\n    accuracy                           0.64      1676\n   macro avg       0.63      0.62      0.62      1676\nweighted avg       0.64      0.64      0.63      1676\n\n\n\n\n\nShow the code\n## Show what variables were most important for the model.\nfeatures = x.columns\nimportance = classifier.feature_importances_\ndata_group = {'Feature': features, 'Importance': importance}\n\nimportance_chart = pd.DataFrame(data_group)\nimportance_chart = importance_chart.sort_values('Importance').head(10)\n\n\nBelow is a graph showing which features were most important to predict whether or not someone was asked out after speed dating. The variables titled ‘pref_o_…’ are traits the Dater’s partner said they were looking for, and the other traits are what the Dater rated themself out of 10.\n\n\nShow the code\n## Graph the importance levels to show what variables were most important.\n(\n  ggplot(importance_chart, aes('Importance', 'Feature')) \n  + geom_bar(stat = 'identity')\n  + labs(\n    title='Predictive Variables For Being Asked Out'\n  )\n)\n\n\n   \n   \n\n\nThis graph shows that the preferences of someone’s partner durring speed dating were a better predictor on how likely they were to being asked out, rather than how they saw themselves. In other words “Beauty is in the eye of the beholder” applies to speed dating. But this graph doesn’t show what traits are more desirable than others. Let’s explore that next.\n\n\nDo people who rate themselves highly on desireable traits get asked out more?\n\n\nShow the code\n## Isolate the self proclaimed attributes (such as how attractive someone thinks they are)\nself_proclaim = self_rate\nself_proclaim['average of proclaimed attributes'] = self_rate.loc[:,self_rate.iloc[:,5:10].columns].sum(axis = 1)\n\n\n\n\nShow the code\n## Make a chart with the mean values of people that got asked out VS. people that didn't.\nself_proclaim =self_proclaim.groupby('decision_o', as_index=False).mean()\n\n\nself_proclaim['decision of partner'] = self_proclaim['decision_o'].apply(lambda x: 'yes' if x == 1 else 'no')\n\nself_proclaim[['decision of partner', 'average of proclaimed attributes']]\n\n\n\n\n\n\n\n\n\ndecision of partner\naverage of proclaimed attributes\n\n\n\n\n0\nno\n38.487353\n\n\n1\nyes\n38.700711\n\n\n\n\n\n\n\nThe above Table shows the mean number of all the traits someone rated themselves with (out of how attractive, sincere, intelligent, funny, and ambitious they were) grouped by whether or not they were asked out. It shows that the people that rated themselves high on those traits were just as likely to get asked out as the people that rated themselves low. This means that when speed dating the ammount of people that ask you out isn’t dependent on what kind of person you think you are. Which means that if you’re self consious and beat yourself up, don’t. You’re still just as attractive to speed daters.\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project4.html",
+    "href": "Machine_Learning/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "Story_Telling/project2.html",
+    "href": "Story_Telling/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Story_Telling/project3.html",
+    "href": "Story_Telling/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Story_Telling/project5.html",
+    "href": "Story_Telling/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "exploration.html",
+    "href": "exploration.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Exploration"
+    ]
+  },
+  {
+    "objectID": "exploration.html#title-2-header",
+    "href": "exploration.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Exploration"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project1.html",
+    "href": "Full_Stack/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project4.html",
+    "href": "Full_Stack/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "story_telling.html",
+    "href": "story_telling.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Story Telling"
+    ]
+  },
+  {
+    "objectID": "story_telling.html#title-2-header",
+    "href": "story_telling.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Story Telling"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Projects/project1.html",
+    "href": "Cleansing_Projects/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Data Cleansing",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Projects/project4.html",
+    "href": "Cleansing_Projects/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Data Cleansing",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "competition.html",
+    "href": "competition.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Competition"
+    ]
+  },
+  {
+    "objectID": "competition.html#title-2-header",
+    "href": "competition.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Competition"
+    ]
+  },
+  {
+    "objectID": "full_stack.html",
+    "href": "full_stack.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Full Stack"
+    ]
+  },
+  {
+    "objectID": "full_stack.html#title-2-header",
+    "href": "full_stack.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Full Stack"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics"
+  },
+  {
+    "objectID": "index.html#title-2-header",
+    "href": "index.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics"
+  },
+  {
+    "objectID": "Cleansing_Projects/project5.html",
+    "href": "Cleansing_Projects/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Data Cleansing",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Projects/project3.html",
+    "href": "Cleansing_Projects/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Data Cleansing",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Projects/project2.html",
+    "href": "Cleansing_Projects/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Data Cleansing",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project5.html",
+    "href": "Full_Stack/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project3.html",
+    "href": "Full_Stack/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project2.html",
+    "href": "Full_Stack/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "notebooks/Exploration_01_Polars.html",
+    "href": "notebooks/Exploration_01_Polars.html",
+    "title": "Data Exploration 01",
+    "section": "",
+    "text": "A consumer watchdog group wants to see if Netflix has more movies for adults or children.\nUsing a dataset containing metadata for all of the movies Netflix had available on their platform in 2019, we’ll use the MPAA movie rating system to determine if they are correct."
+  },
+  {
+    "objectID": "notebooks/Exploration_01_Polars.html#mpaa-movie-ratings",
+    "href": "notebooks/Exploration_01_Polars.html#mpaa-movie-ratings",
+    "title": "Data Exploration 01",
+    "section": "MPAA Movie Ratings:",
+    "text": "MPAA Movie Ratings:\n\nG: All ages admitted.\nPG: Some material may not be suitable for children.\nPG-13: Some material may be inappropriate for children under 13.\nR: Under 17 requires accompanying parent or adult guardian\nNC-17: No One 17 and Under Admitted\n\nMost people would consider G and PG as ratings suitable for children. However, not everyone would agree that a PG-13 movie is necssarily a children’s movie. It is up to you to decide how to handle this."
+  },
+  {
+    "objectID": "notebooks/Exploration_01_Polars.html#part-1-import-polars",
+    "href": "notebooks/Exploration_01_Polars.html#part-1-import-polars",
+    "title": "Data Exploration 01",
+    "section": "Part 1: Import Polars",
+    "text": "Part 1: Import Polars\nThe polars library is a python library used for data analysis and manipulation. It will provide the core functionality for most of what you do in the data exploration and preprocessing stages of most machine learning projects.\nPlease see this Getting Started Guide for information on the conventional way to import Polars into your project, as well as other helpful tips for common Polars tasks.\n\n# Part 1: Enter the code below to import Polars according to the\n# conventional method.\nimport Polars as pl"
+  },
+  {
+    "objectID": "notebooks/Exploration_01_Polars.html#part-2-load-the-data",
+    "href": "notebooks/Exploration_01_Polars.html#part-2-load-the-data",
+    "title": "Data Exploration 01",
+    "section": "Part 2: Load the data",
+    "text": "Part 2: Load the data\nThe dataset for this exploration is stored at the following url:\nhttps://raw.githubusercontent.com/byui-cse/cse450-course/master/data/netflix_titles.csv\nThere are lots of ways to load data into your workspace. The easiest way in this case is to ask Polars to do it for you.\n\nInitial Data Analysis\nOnce you’ve loaded the data, it’s a good idea to poke around a little bit to find out what you’re dealing with.\nSome questions you might ask include:\n\nWhat does the data look like?\nWhat kind of data is in each column?\nDo any of the columns have missing values?\n\n\n# Part 2: Load the dataset into a Polars dataframe.\n\n\n# Then, explore the data by seeing what the first few rows look like.\n\n\n# Next, display a technical summary of the data to determine the data types of each column, and which columns have missing data."
+  },
+  {
+    "objectID": "notebooks/Exploration_01_Polars.html#part-3-filter-the-data",
+    "href": "notebooks/Exploration_01_Polars.html#part-3-filter-the-data",
+    "title": "Data Exploration 01",
+    "section": "Part 3: Filter the Data",
+    "text": "Part 3: Filter the Data\nSince we’re just interested in movies, we’ll need to filter out anything that isn’t a movie for our analysis. The type feature contains this information.\nOnce we have the subset, we should see how many rows it contains. There are a variety of ways to get the length of a data frame.\n\n# Use polars's filtering abilitites to select the subset of data\n# that represents movies, then calculate how many rows are in the filtered data.\n\n\nMPAA Ratings\nNow that we have only movies, let’s get a quick count of the values being used in the rating feature.\n\n# Determine the number of records for each value of the \"rating\" feature.\n# Remember to count the values in your subset only, not in the original dataframe.\n\n\n\nMore Filtering\nThere are apparently some “made for TV” movies in the list that don’t fit the MPAA rating scheme.\nLet’s filter some more to just see movies rated with the standard MPAA ratings of G, PG, PG-13, R, and NC-17.\n\n# Filter the list of movies to select a new subset containing only movies with\n# a standard MPAA rating. Calculate how many rows are in this new set, and\n# then see which ratings appear most often."
+  },
+  {
+    "objectID": "notebooks/Exploration_01_Polars.html#part-4-visualization",
+    "href": "notebooks/Exploration_01_Polars.html#part-4-visualization",
+    "title": "Data Exploration 01",
+    "section": "Part 4: Visualization",
+    "text": "Part 4: Visualization\nNow that we have explored and preprocessed our data, let’s create a visualization to summarize our findings.\n\nExploration vs Presentation\nBroadly speaking, there are two types of visualizations: * Barebones visualizations you might use to get a quick, visual understanding of the data while you’re trying to decide how it all fits together. * Presentation-quality visualizations that you would include in a report or presentation for management or other stakeholders.\n\n\nVisualization Tools\nThere are many different visualization tools availble. In the sections below, we’ll explore the three most common. Each of these libraries has strengths and weaknesses.\nIt is probably a good idea for you to become familiar with each one, and then become proficient at whichever one you like the best.\n\n\nLet’s Plot\nThe Let’s Plot visualization library uses a grammer of graphics to build up a chart piece by piece.\nAssume we have a polars dataframe called employees, with three columns: name, job, salary.\n# Make a box plot style categorical plot showing the distribution of salaries for each job:\nggplot(data=employees, aes(x='job', y='salary')) + geom_box()\n\n# Make a box plot style categorical plot, and customize the results\n(\n    ggplot(data=employees, aes(x='job', y='salary'))\n    + geom_boxplot()\n    + labs(\n        title='Salaries by Job Title'\n    )\n)\nDependencies need to be installed in colab to use Let’s Plot. Use %pip to install it. %pip install lets-plot will install the library, and skip it if it’s already installed.\n\n# Install the lets-plot module into this server\n%pip install lets-plot\n\nLike with Polars, there is a conventional way to import Let’s Plot into your projects.\n\n# Import the Let's Plot library the conventional way.\n\nLet’s create a barchart showing the count of each movie rating by using Let’s Plot’s capabilities.\nIn this example, we see the x axis being set to a feature called species, and the y axis is a count of the number of rows for that species.\nIn our case, we want the x-axis to be set to rating.\n\n\nAltair\nThe Altair visualization library provides a large variety of very easy to use statistical charting tools.\nAltair uses a declarative language to build up charts piece by piece.\nAssume we have a pandas dataframe called employees, with three columns: name, job, salary.\n# Make a box plot style categorical plot showing the distribution of salaries for each job:\nalt.Chart(employees).mark_boxplot().encode(\n    x='job',\n    y='salary'\n)\n\n# Make a box plot style categorical plot, and customize the results\nalt.Chart(employees).mark_boxplot().encode(\n    alt.X('job', title='Job title'),\n    alt.Y('salary', title='Annual salary in thousands of $USD')\n).properties(\n  title='Salaries by Job Title'\n)\nLike with Polars, there is a conventional way to import Altair into your projects.\n\n# Import the Altair library the conventional way.\n\nLet’s create a barchart showing the count of each movie rating by using Altair’s aggregation capabilities.\nIn this example, we see the x axis being set to a feature called a, and the y axis set to the average() of a feature called b.\nIn our case, we want the x axis to be set to rating and the y axis to be the count() of rating.\n\n# Use Altair to create a bar chart comparing the count of each movie rating\n\n\n\nSeaborn\nWhile Altair uses a “declarative” syntax for building charts piece by piece, the Seaborn library provides a large variety of pre-made charts for common statistical needs.\nThese charts are divided into different categories. Each category has a high-level interface you can use for simplicity, and then a specific function for each chart that you can use if you need more control over how the chart looks.\nSeaborn uses matplotlib for its drawing, and the chart-specific functions each return a matplitlib axes object if you need additional customization.\nFor example, there are several different types of categorical plots in seaborn: bar plots, box plots, point plots, count plots, swarm plots, etc…\nEach of these plots can be accessed using the catplot function.\nAssume we have a pandas dataframe called employees, with three columns: name, job, salary.\n# Make a box plot style categorical plot showing the distribution of salaries for each job:\nsns.catplot(data=employees, x='job', y='salary', kind='box')\n\n# Make a swarm plot style categorical plot\nsns.catplot(data=employees, x='job', y='salary', kind='swarm')\nAlternatively, you can use the plot specific functions to give yourself more control over the output by using matplotlib functions:\n# Make a box plot style categorical plot, and customize the results\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(12, 9))\nax = sns.boxplot(data=employees, x='job', y='salary')\nax.set_title(\"Salaries by Job Title\")\nax.set_ylabel(\"Annual salary in thousands of $USD\")\nax.set_xlabel(\"Job title\")\nLike with Polars, there is a conventional way to import Seaborn into your projects.\nOptionally, you may wish to set some default chart aesthetics by setting the chart style.\n\n# Import the seaborn library the conventional way. Then optionally configure\n# the default chart style.\n\nSince the rating column uses categorical data, we need to use Seaborn’s categorical visualizations.\nIn particular, we want a “count plot” that will display a count of movie ratings.\n\n# Use seaborn to create a count plot comparing the count of each movie rating"
+  },
+  {
+    "objectID": "notebooks/Exploration_01_Polars.html#above-and-beyond",
+    "href": "notebooks/Exploration_01_Polars.html#above-and-beyond",
+    "title": "Data Exploration 01",
+    "section": "🌟 Above and Beyond 🌟",
+    "text": "🌟 Above and Beyond 🌟\nAfter reviewing your findings, the watchdog group would like some additional questions answered:\n\nHow are things affected if you include the “made for TV movies” that have been assigned TV ratings in your analysis, but still exclude unrated movies?\nThey would also like to see a separate report that includes only TV shows.\nFor an upcoming community meeting, the group would like to present a simple chart showing “For Kids” and “For Adults” categories. The easiest way to accomplish this would be to create a new column in your data frame that maps each rating to the appropriate “For Kids” or “For Adults” label, then create a new visualization based on that column."
+  },
+  {
+    "objectID": "Story_Telling/project4.html",
+    "href": "Story_Telling/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "Story_Telling/project1.html",
+    "href": "Story_Telling/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 1"
+    ]
+  },
+  {
     "objectID": "Machine_Learning/project5.html",
     "href": "Machine_Learning/project5.html",
     "title": "Client Report - [Insert Project Title]",
@@ -461,6 +436,17 @@
     ]
   },
   {
+    "objectID": "Machine_Learning/project3.html",
+    "href": "Machine_Learning/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
+      "Project 3"
+    ]
+  },
+  {
     "objectID": "Machine_Learning/project2.html",
     "href": "Machine_Learning/project2.html",
     "title": "Client Report - [Insert Project Title]",
@@ -469,6 +455,69 @@
     "crumbs": [
       "Machine Learning",
       "Project 2"
+    ]
+  },
+  {
+    "objectID": "Competition/project4.html",
+    "href": "Competition/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "Competition/project1.html",
+    "href": "Competition/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Exploration/project5.html",
+    "href": "Cleansing_Exploration/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project3.html",
+    "href": "Cleansing_Exploration/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project2.html",
+    "href": "Cleansing_Exploration/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "ml.html",
+    "href": "ml.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Machine Learning"
+    ]
+  },
+  {
+    "objectID": "ml.html#title-2-header",
+    "href": "ml.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Machine Learning"
     ]
   }
 ]
