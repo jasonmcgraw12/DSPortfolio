@@ -4388,7 +4388,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="what-variables-are-important-to-getting-asked-out" class="level1">
 <h1>What variables are important to getting asked out?</h1>
 <p>In order to answer this question I’m going to use a machine learning model to take in data, then I’ll have it tell us what factors went into it’s predicitons. Follow me.</p>
-<div id="7f8c7610" class="cell" data-execution_count="1">
+<div id="cf28f78d" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Import libraries and data frame.</span></span>
@@ -4402,7 +4402,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </details>
 <div class="cell-output cell-output-display">
 
-        <div id="SrgU6Y"></div>
+        <div id="X6GWPE"></div>
         <script type="text/javascript" data-lets-plot-script="library">
             if(!window.letsPlotCallQueue) {
                 window.letsPlotCallQueue = [];
@@ -4426,16 +4426,16 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
                     var div = document.createElement("div");
                     div.style.color = 'darkred';
                     div.textContent = 'Error loading Lets-Plot JS';
-                    document.getElementById("SrgU6Y").appendChild(div);
+                    document.getElementById("X6GWPE").appendChild(div);
                 };
-                var e = document.getElementById("SrgU6Y");
+                var e = document.getElementById("X6GWPE");
                 e.appendChild(script);
             })()
         </script>
         
 </div>
 </div>
-<div id="acb73e96" class="cell" data-execution_count="2">
+<div id="6e8998b4" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Make a new data frame using the data I want to test for.</span></span>
@@ -4457,14 +4457,14 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>              ]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="babe9bcf" class="cell" data-execution_count="3">
+<div id="523bb43f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Data clean up</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>self_rate.iloc[:,<span class="dv">0</span>:<span class="dv">5</span>] <span class="op">=</span> self_rate.iloc[:,<span class="dv">0</span>:<span class="dv">5</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="op">/</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="afa4ba5d" class="cell" data-execution_count="4">
+<div id="e7348652" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Split data into train and test sections for machine learning.</span></span>
@@ -4478,7 +4478,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CHANGE don&#39;t include random state in final project</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="535d6128" class="cell" data-execution_count="5">
+<div id="5850eb74" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Teach machine learning model using the train values.</span></span>
@@ -5493,7 +5493,7 @@ sub-estimators.<br>
 <br>
 The collection of fitted sub-estimators.</span></a></td>
 <td class="fitted-att-type">list</td>
-<td>[DecisionTreeC...ate=295414187), DecisionTreeC...ate=566156091), DecisionTreeC...te=2027147438), DecisionTreeC...ate=363241788), ...]</td>
+<td>[DecisionTreeC...tate=22037412), DecisionTreeC...ate=419727908), DecisionTreeC...ate=489511703), DecisionTreeC...te=1666040613), ...]</td>
 </tr>
 <tr class="default odd">
 <td class="param"><a href="https://scikit-learn.org/1.9/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=estimators_samples_,-list%20of%20arrays" class="param-doc-link" style="anchor-name: --doc-link-estimators_samples_;" rel="noreferrer" target="_blank">estimators_samples_ <span class="param-doc-description" style="position-anchor: --doc-link-estimators_samples_;"> estimators_samples_: list of arrays<br>
@@ -5503,7 +5503,7 @@ estimator. Each subset is defined by an array of the indices selected.<br>
 <br>
 .. versionadded:: 1.4</span></a></td>
 <td class="fitted-att-type">list</td>
-<td>[array([2055, ..., dtype=int32), array([5314, ..., dtype=int32), array([2861, ..., dtype=int32), array([ 293, ..., dtype=int32), ...]</td>
+<td>[array([4777, ..., dtype=int32), array([5423, ..., dtype=int32), array([ 68, ..., dtype=int32), array([3819, ..., dtype=int32), ...]</td>
 </tr>
 <tr class="default even">
 <td class="param"><a href="https://scikit-learn.org/1.9/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=feature_importances_,-ndarray%20of%20shape%20%28n_features%2C%29" class="param-doc-link" style="anchor-name: --doc-link-feature_importances_;" rel="noreferrer" target="_blank">feature_importances_ <span class="param-doc-description" style="position-anchor: --doc-link-feature_importances_;"> feature_importances_: ndarray of shape (n_features,)<br>
@@ -5733,7 +5733,7 @@ forceTheme('sk-container-id-1');</script>
 </div>
 </div>
 <p>Below is the accuracy of the machine learning model. The numbers by the 1 is how good the model is at predicting if someone got asked out, and the numbers by the 0 is the model’s ability to predict if someone didn’t get asked out. So, the model is better at predicting if someone didn’t get asked out. This will play a role in the data later.</p>
-<div id="7c70de09" class="cell" data-execution_count="6">
+<div id="6b53efe0" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Show accuracy of the model.</span></span>
@@ -5746,16 +5746,16 @@ forceTheme('sk-container-id-1');</script>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
 
-           0       0.67      0.76      0.71       975
-           1       0.59      0.48      0.53       701
+           0       0.66      0.75      0.70       957
+           1       0.59      0.48      0.53       719
 
-    accuracy                           0.64      1676
-   macro avg       0.63      0.62      0.62      1676
-weighted avg       0.64      0.64      0.63      1676
+    accuracy                           0.63      1676
+   macro avg       0.62      0.61      0.61      1676
+weighted avg       0.63      0.63      0.63      1676
 </code></pre>
 </div>
 </div>
-<div id="9c36743f" class="cell" data-execution_count="7">
+<div id="082b6c53" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Show what variables were most important for the model.</span></span>
@@ -5768,7 +5768,7 @@ weighted avg       0.64      0.64      0.63      1676
 </details>
 </div>
 <p>Below is a graph showing which features were most important to predict whether or not someone was asked out after speed dating. The variables titled ‘pref_o_…’ are traits the Dater’s partner said they were looking for, and the other traits are what the Dater rated themself out of 10.</p>
-<div id="bf94ee96" class="cell" data-execution_count="8">
+<div id="60e0e4e0" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Graph the importance levels to show what variables were most important.</span></span>
@@ -5781,7 +5781,7 @@ weighted avg       0.64      0.64      0.63      1676
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="8">
-   <div id="BxF2fD"></div>
+   <div id="BRaoiO"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -5806,7 +5806,7 @@ weighted avg       0.64      0.64      0.63      1676
        };
    }
    
-   const containerDiv = document.getElementById("BxF2fD");
+   const containerDiv = document.getElementById("BRaoiO");
    let fig = null;
    
    function renderPlot() {
@@ -5814,7 +5814,7 @@ weighted avg       0.64      0.64      0.63      1676
            const plotSpec = {
 "data":{
 "Feature":["funny","intelligence","attractive","sincere","pref_o_funny","pref_o_intelligence","pref_o_ambitious","pref_o_sincere","ambition","pref_o_attractive"],
-"Importance":[0.06953995484168102,0.08767838278082135,0.09363243678296464,0.09612351693914083,0.09935651959969928,0.10082378277506363,0.10701800294174207,0.1099667111774999,0.11210699933924927,0.12375369282213809]
+"Importance":[0.07084878183567953,0.09058396339247692,0.09284750264576175,0.0988033699256916,0.09928838924069695,0.10177894148532363,0.10307827376895368,0.10684820192829327,0.11244311740622419,0.12347945837089858]
 },
 "mapping":{
 "x":"Importance",
@@ -5895,7 +5895,7 @@ weighted avg       0.64      0.64      0.63      1676
 </section>
 <section id="do-people-who-rate-themselves-highly-on-desireable-traits-get-asked-out-more" class="level1">
 <h1>Do people who rate themselves highly on desireable traits get asked out more?</h1>
-<div id="e91d1790" class="cell" data-execution_count="9">
+<div id="38b9d202" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Isolate the self proclaimed attributes (such as how attractive someone thinks they are)</span></span>
@@ -5903,7 +5903,7 @@ weighted avg       0.64      0.64      0.63      1676
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>self_proclaim[<span class="st">&#39;average of proclaimed attributes&#39;</span>] <span class="op">=</span> self_rate.loc[:,self_rate.iloc[:,<span class="dv">5</span>:<span class="dv">10</span>].columns].<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="8562281c" class="cell" data-execution_count="10">
+<div id="e47d8764" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Make a chart with the mean values of people that got asked out VS. people that didn&#39;t.</span></span>
